@@ -60,7 +60,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
             }
             // Handle DP upload
     if (isset($_FILES["dp"]) && $_FILES["dp"]["error"] == 0) {
-        $target_dir = "../uploads/";
+        $target_dir = "../DP_uploads/";
         $dp_filename = "dp_" . $user_id . ".jpg";
         $target_file = $target_dir . $dp_filename;
 
@@ -134,9 +134,9 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 // Determine DP path or fallback
-$dp_path = "../uploads/default.jpg";
-if (!empty($user['DP']) && file_exists("../uploads/" . $user['DP'])) {
-    $dp_path = "../uploads/" . $user['DP'];
+$dp_path = "../DP_uploads/default.jpg";
+if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
+    $dp_path = "../DP_uploads/" . $user['DP'];
 }
 ?>
 
@@ -259,7 +259,7 @@ if (!empty($user['DP']) && file_exists("../uploads/" . $user['DP'])) {
 
                         <div class="mb-3">
                             <label class="form-label">Change Display Picture (JPG only, Max 2MB)</label>
-                            <input type="file" name="dp" class="form-control" accept=".jpg,.jpeg" />
+                            <input type="file" name="dp" class="form-control" accept=".jpg,.jpeg,.png" />
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100 mb-3">Save Changes</button>

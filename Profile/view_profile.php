@@ -21,7 +21,7 @@ echo "User not found.";
 exit;
 }
 // Determine DP path or fallback
-$dp_path = $user['DP'] && file_exists("../" . $user['DP']) ? "../" . $user['DP'] : "../uploads/default.png";
+$dp_path = $user['DP'] && file_exists("../" . $user['DP']) ? "../" . $user['DP'] : "../DP_uploads/default.png";
 
 // Fetch posts
 $post_stmt = $conn->prepare("SELECT content, created_at FROM UserPosts WHERE user_id = ? ORDER BY created_at DESC");
@@ -30,9 +30,9 @@ $post_stmt->execute();
 $posts = $post_stmt->get_result();
 
 // Decide profile picture
-$dp_path = "../uploads/default.png";
-if (!empty($user['DP']) && file_exists("../uploads/" . $user['DP'])) {
-$dp_path = "../uploads/" . $user['DP'];
+$dp_path = "../DP_uploads/default.png";
+if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
+$dp_path = "../DP_uploads/" . $user['DP'];
 }
 
 // Get role for redirection

@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Handle image upload if a new file was provided
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-        $target_dir = "../uploads/";
+        $target_dir = "../DP_uploads/";
         if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
 
         // Delete old image if exists
