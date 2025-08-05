@@ -11,6 +11,8 @@ $user_id = $_SESSION['user_id'];
 
 $profile_error = $profile_success = "";
 $pass_error = $pass_success = "";
+$error = "";
+
 
 // Handle Profile Update
 if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {

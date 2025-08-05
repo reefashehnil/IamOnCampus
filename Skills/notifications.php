@@ -30,7 +30,7 @@ $update_stmt->execute();
 </head>
 <body>
 <div class="container mt-5">
-    <a href="../Login/dashboard.php" class="btn btn-secondary mb-3">← Back to Dashboard</a>
+    <a href="../Login/dashboard.php" class="btn btn-secondary mb-3">Back to Dashboard</a>
     <h3 class="text-center mb-4 text-primary">Your Notifications</h3>
 
     <?php if ($notifications->num_rows > 0): ?>

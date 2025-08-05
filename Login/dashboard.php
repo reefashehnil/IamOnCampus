@@ -6,6 +6,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
     header("Location: login.php");
     exit;
 }
+include '../Connection/db_connect.php';
+
+$user_id = $_SESSION['user_id'];
+$unreadCount = 0;
+
+$sql = "SELECT COUNT(*) AS unread FROM notifications WHERE User_id = ? AND Seen_status = 0";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $unreadCount = $row['unread'];
+}
+$stmt->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -237,13 +252,20 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
         </a>
 
         <!-- Notifications card -->
-        <a href="../Skills/notifications.php" class="col-md-4 card-link">
-            <div class="card text-center">
-                <i class="bi bi-bell"></i>
-                <h5 class="card-title">Notifications</h5>
-                <p class="card-text">View your notifications.</p>
-            </div>
-        </a>
+        <a href="../Skills/notifications.php" class="col-md-4 card-link position-relative">
+    <div class="card text-center">
+        <i class="bi bi-bell"></i>
+        <h5 class="card-title">Notifications</h5>
+        <p class="card-text">View your notifications.</p>
+        <?php if ($unreadCount > 0): ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <?= $unreadCount ?>
+                <span class="visually-hidden">unread notifications</span>
+            </span>
+        <?php endif; ?>
+    </div>
+</a>
+
 
         <!-- Logout card -->
         <a href="logout.php" class="col-md-4 card-link">

@@ -7,12 +7,14 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Fetch posts with necessary data
 $stmt = $conn->prepare("
-    SELECT p.Content, p.Image_Path, p.Video_Path, p.Timestamp, u.F_name, u.L_name, u.DP 
+    SELECT p.Post_id, p.Content, p.Image_Path, p.Video_Path, p.Timestamp, u.F_name, u.L_name, u.DP 
     FROM userposts p
     JOIN Users u ON p.User_id = u.User_id
     ORDER BY p.Timestamp DESC
 ");
+
 $stmt->execute();
 $posts = $stmt->get_result();
 ?>
@@ -30,11 +32,11 @@ $posts = $stmt->get_result();
             object-fit: cover;
             border-radius: 50%;
             margin-right: 15px;
-            border: 2px solid #1877f2; /* Facebook blue border */
+            border: 2px solid #1877f2;
         }
         .post-card {
             max-width: 700px;
-            margin: 0 auto 30px auto; /* center and add vertical spacing */
+            margin: 0 auto 30px auto;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
             border: 1px solid #ddd;
@@ -51,7 +53,7 @@ $posts = $stmt->get_result();
             color: #1c1e21;
             margin-top: 10px;
             margin-bottom: 15px;
-            white-space: pre-wrap; /* preserve line breaks */
+            white-space: pre-wrap;
         }
         img.post-image {
             max-height: 350px;
@@ -69,9 +71,10 @@ $posts = $stmt->get_result();
         .timestamp {
             color: #65676b;
             font-size: 0.85rem;
+            margin-top: 10px;
         }
         body {
-            background-color: #f0f2f5; /* Facebook light background */
+            background-color: #f0f2f5;
             padding-bottom: 50px;
         }
         .header-bar {
@@ -81,7 +84,6 @@ $posts = $stmt->get_result();
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .header-bar h3 {
             font-weight: 700;
@@ -131,6 +133,71 @@ $posts = $stmt->get_result();
                     Your browser does not support the video tag.
                 </video>
             <?php endif; ?>
+
+            <!-- Reaction Buttons (inside card for alignment) -->
+            <div class="mt-2">
+                <form action="react_post.php" method="POST" class="d-inline-block">
+                    <input type="hidden" name="post_id" value="<?= $row['Post_id'] ?>">
+                    <?php
+                    $reactions = [
+                        'like' => '👍', 'love' => '❤️', 'care' => '🤗',
+                        'haha' => '😂', 'wow' => '😮', 'sad' => '😢', 'angry' => '😡'
+                    ];
+                    foreach ($reactions as $type => $emoji): ?>
+                        <button type="submit" name="reaction_type" value="<?= $type ?>" class="btn btn-outline-secondary btn-sm me-1"><?= $emoji ?></button>
+                    <?php endforeach; ?>
+                </form>
+            </div>
+<!-- Comment Form -->
+<form action="comment_post.php" method="POST" class="mt-3">
+    <input type="hidden" name="post_id" value="<?= $row['Post_id'] ?>">
+    <input type="hidden" name="action" value="add_comment">
+    <div class="input-group">
+        <input type="text" name="comment" class="form-control" placeholder="Write a comment..." required>
+        <button type="submit" class="btn btn-outline-primary btn-sm">Comment</button>
+    </div>
+</form>
+
+<!-- Show Comments -->
+<?php
+$commentStmt = $conn->prepare("
+    SELECT c.Comment_id, c.Comment_text, c.Timestamp, c.User_id, u.F_name, u.L_name
+    FROM post_comments c
+    JOIN users u ON c.User_id = u.User_id
+    WHERE c.Post_id = ?
+    ORDER BY c.Timestamp ASC
+");
+$commentStmt->bind_param("i", $row['Post_id']);
+$commentStmt->execute();
+$commentResult = $commentStmt->get_result();
+
+while ($comment = $commentResult->fetch_assoc()):
+?>
+    <div class="mt-2 p-2 border rounded bg-light">
+        <strong><?= htmlspecialchars($comment['F_name'] . ' ' . $comment['L_name']) ?></strong> 
+        <small class="text-muted"><?= $comment['Timestamp'] ?></small>
+        <p><?= htmlspecialchars($comment['Comment_text']) ?></p>
+
+        <?php if ($_SESSION['user_id'] == $comment['User_id']): ?>
+            <!-- Edit Form -->
+            <form action="comment_post.php" method="POST" class="d-inline-block me-2">
+                <input type="hidden" name="action" value="edit_comment">
+                <input type="hidden" name="comment_id" value="<?= $comment['Comment_id'] ?>">
+                <input type="text" name="comment" value="<?= htmlspecialchars($comment['Comment_text']) ?>" class="form-control form-control-sm d-inline-block w-auto" required>
+                <button type="submit" class="btn btn-sm btn-outline-success">Edit</button>
+            </form>
+
+            <!-- Delete Form -->
+            <form action="comment_post.php" method="POST" class="d-inline-block">
+                <input type="hidden" name="action" value="delete_comment">
+                <input type="hidden" name="comment_id" value="<?= $comment['Comment_id'] ?>">
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this comment?')">Delete</button>
+            </form>
+        <?php endif; ?>
+    </div>
+<?php endwhile; ?>
+
+
 
             <div class="timestamp">Posted on <?= date("d M Y, h:i A", strtotime($row['Timestamp'])) ?></div>
         </div>
