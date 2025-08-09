@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
 header("Location: login.php");
 exit;
 }
+include '../Connection/db_connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -146,6 +147,31 @@ View all users, add new users, edit user info (including passwords), and delete 
 </div>
 </a>
 
+<!-- Messages -->
+<a href="../Chat/chat_list.php" class="col-md-4 card-link position-relative">
+    <div class="card text-center">
+        <i class="bi bi-envelope"></i>
+        <h5 class="card-title">Messages</h5>
+        <p class="card-text">Chat with other users.</p>
+        <?php
+        $msg_stmt = $conn->prepare("SELECT COUNT(*) AS unread_msgs FROM messages WHERE Receiver_id = ? AND Seen_status = 0");
+        $msg_stmt->bind_param("i", $user_id);
+        $msg_stmt->execute();
+        $msg_res = $msg_stmt->get_result()->fetch_assoc();
+        if ($msg_res['unread_msgs'] > 0): ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="message-notif">
+                <?= $msg_res['unread_msgs'] ?>
+                <span class="visually-hidden">unread messages</span>
+            </span>
+        <?php else: ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="message-notif" style="display:none;">
+                0
+                <span class="visually-hidden">unread messages</span>
+            </span>
+        <?php endif; ?>
+    </div>
+</a>
+
 <a href="logout.php" class="col-md-4 card-link">
 <div class="card text-center bg-danger text-white" style="height: 150px; border-radius: 12px;">
 <i class="bi bi-box-arrow-right" style="font-size: 3.2rem;"></i>
@@ -158,7 +184,20 @@ View all users, add new users, edit user info (including passwords), and delete 
 
 <footer>&copy; 2025 IamOnCampus. All rights reserved.</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+setInterval(function(){
+    $.get("../Chat/check_new_messages.php", function(data){
+        try {
+            let res = JSON.parse(data);
+            if(res.count && res.count > 0) {
+                $("#message-notif").text(res.count).show();
+            } else {
+                $("#message-notif").hide().text('');
+            }
+        } catch(e) { console.error(e); }
+    });
+}, 2000);
+</script>
 </body>
 </html>
 

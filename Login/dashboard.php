@@ -20,7 +20,6 @@ if ($row = $result->fetch_assoc()) {
     $unreadCount = $row['unread'];
 }
 $stmt->close();
-
 ?>
 
 <!DOCTYPE html>
@@ -73,11 +72,7 @@ $stmt->close();
             border-radius: 6px;
             border: 1px solid #ccc;
         }
-        /* Center and style edit button container */
-        .edit-btn-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .edit-btn-container { text-align: center; margin-bottom: 30px; }
         .btn-edit-profile {
             font-weight: 600;
             font-size: 1.1rem;
@@ -90,11 +85,7 @@ $stmt->close();
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             transition: background-color 0.3s ease;
         }
-        .btn-edit-profile:hover {
-            background-color: #025aa5;
-            color: #fff;
-            text-decoration: none;
-        }
+        .btn-edit-profile:hover { background-color: #025aa5; color: #fff; text-decoration: none; }
         .card {
             cursor: pointer;
             transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -109,58 +100,19 @@ $stmt->close();
             text-decoration: none;
             position: relative;
         }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 16px rgb(0 0 0 / 0.15);
-            color: #013e6b;
-            text-decoration: none;
-        }
-        .card i {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
-        }
-        .card-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 6px;
-        }
-        .card-text {
-            font-size: 0.9rem;
-            color: #34515e;
-        }
-       
-        .profile-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            padding: 0 20px 10px;
-        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 8px 16px rgb(0 0 0 / 0.15); color: #013e6b; text-decoration: none; }
+        .card i { font-size: 3.2rem; margin-bottom: 12px; }
+        .card-title { font-weight: 600; font-size: 1.2rem; margin-bottom: 6px; }
+        .card-text { font-size: 0.9rem; color: #34515e; }
+        .profile-links { display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 0 20px 10px; }
         .profile-links a {
-            display: block;
-            text-align: center;
-            background: #e3f2fd;
-            color: #0275d8;
-            font-weight: 600;
-            padding: 8px 0;
-            border-radius: 8px;
-            text-decoration: none;
+            display: block; text-align: center; background: #e3f2fd; color: #0275d8;
+            font-weight: 600; padding: 8px 0; border-radius: 8px; text-decoration: none;
             box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .profile-links a:hover {
-            background-color: #0275d8;
-            color: #fff;
-            text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            padding: 15px 0;
-            background: #b2ebf2;
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: auto;
-        }
+        .profile-links a:hover { background-color: #0275d8; color: #fff; text-decoration: none; }
+        footer { text-align: center; padding: 15px 0; background: #b2ebf2; font-size: 0.9rem; color: #555; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -173,31 +125,28 @@ $stmt->close();
         <span class="id"><?= $_SESSION['user_id'] ?></span>
     </div>
 
-
     <div class="row g-4">
 
-<div class="col-md-4">
-  <div class="dropdown">
-    <a class="card-link text-decoration-none" data-bs-toggle="dropdown" role="button" aria-expanded="false" href="#">
-      <div class="card text-center">
-        <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
-        <h5 class="card-title mt-2 mb-0">My Profile</h5>
-        <p class="card-text">View and edit your profile, posts.</p>
-      </div>
-    </a>
-    <ul class="dropdown-menu w-100 text-center">
-      <li><a class="dropdown-item" href="../Profile/view_profile.php">View Profile</a></li>
-      <li><a class="dropdown-item" href="../Profile/edit_profile.php">Edit Profile</a></li>
-      <li><a class="dropdown-item" href="../Profile/post_content.php">Create Post</a></li>
-      <li><a class="dropdown-item" href="../Profile/user_posts.php">View Posts</a></li>
-    </ul>
-  </div>
-</div>
+        <!-- My Profile -->
+        <div class="col-md-4">
+            <div class="dropdown">
+                <a class="card-link text-decoration-none" data-bs-toggle="dropdown" role="button" aria-expanded="false" href="#">
+                    <div class="card text-center">
+                        <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+                        <h5 class="card-title mt-2 mb-0">My Profile</h5>
+                        <p class="card-text">View and edit your profile, posts.</p>
+                    </div>
+                </a>
+                <ul class="dropdown-menu w-100 text-center">
+                    <li><a class="dropdown-item" href="../Profile/view_profile.php">View Profile</a></li>
+                    <li><a class="dropdown-item" href="../Profile/edit_profile.php">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="../Profile/post_content.php">Create Post</a></li>
+                    <li><a class="dropdown-item" href="../Profile/user_posts.php">View Posts</a></li>
+                </ul>
+            </div>
+        </div>
 
-
-
-
-        <!-- Skill Management card -->
+        <!-- Skill Management -->
         <div class="col-md-4">
             <div class="dropdown">
                 <a class="card-link text-decoration-none" data-bs-toggle="dropdown" role="button" aria-expanded="false">
@@ -215,7 +164,7 @@ $stmt->close();
             </div>
         </div>
 
-        <!-- Academic Forum card -->
+        <!-- Academic Forum -->
         <a href="forum.php" class="col-md-4 card-link">
             <div class="card text-center">
                 <i class="bi bi-journal-text"></i>
@@ -224,7 +173,7 @@ $stmt->close();
             </div>
         </a>
 
-        <!-- Clubs & Events card -->
+        <!-- Clubs & Events -->
         <a href="clubs_events.php" class="col-md-4 card-link">
             <div class="card text-center">
                 <i class="bi bi-people"></i>
@@ -233,7 +182,7 @@ $stmt->close();
             </div>
         </a>
 
-        <!-- Community Discussion card -->
+        <!-- Community Discussion -->
         <a href="community.php" class="col-md-4 card-link">
             <div class="card text-center">
                 <i class="bi bi-chat-left-dots"></i>
@@ -242,7 +191,7 @@ $stmt->close();
             </div>
         </a>
 
-        <!-- Search Platform card -->
+        <!-- Search Platform -->
         <a href="search.php" class="col-md-4 card-link">
             <div class="card text-center">
                 <i class="bi bi-search"></i>
@@ -251,23 +200,48 @@ $stmt->close();
             </div>
         </a>
 
-        <!-- Notifications card -->
+        <!-- Notifications -->
         <a href="../Skills/notifications.php" class="col-md-4 card-link position-relative">
+            <div class="card text-center">
+                <i class="bi bi-bell"></i>
+                <h5 class="card-title">Notifications</h5>
+                <p class="card-text">View your notifications.</p>
+                <?php if ($unreadCount > 0): ?>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <?= $unreadCount ?>
+                        <span class="visually-hidden">unread notifications</span>
+                    </span>
+                <?php endif; ?>
+            </div>
+        </a>
+
+        <!-- Messages -->
+<a href="../Chat/chat_list.php" class="col-md-4 card-link position-relative">
     <div class="card text-center">
-        <i class="bi bi-bell"></i>
-        <h5 class="card-title">Notifications</h5>
-        <p class="card-text">View your notifications.</p>
-        <?php if ($unreadCount > 0): ?>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <?= $unreadCount ?>
-                <span class="visually-hidden">unread notifications</span>
+        <i class="bi bi-envelope"></i>
+        <h5 class="card-title">Messages</h5>
+        <p class="card-text">Chat with other users.</p>
+        <?php
+        $msg_stmt = $conn->prepare("SELECT COUNT(*) AS unread_msgs FROM messages WHERE Receiver_id = ? AND Seen_status = 0");
+        $msg_stmt->bind_param("i", $user_id);
+        $msg_stmt->execute();
+        $msg_res = $msg_stmt->get_result()->fetch_assoc();
+        if ($msg_res['unread_msgs'] > 0): ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="message-notif">
+                <?= $msg_res['unread_msgs'] ?>
+                <span class="visually-hidden">unread messages</span>
+            </span>
+        <?php else: ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="message-notif" style="display:none;">
+                0
+                <span class="visually-hidden">unread messages</span>
             </span>
         <?php endif; ?>
     </div>
 </a>
 
 
-        <!-- Logout card -->
+        <!-- Logout -->
         <a href="logout.php" class="col-md-4 card-link">
             <div class="card text-center bg-danger text-white" style="height: 150px; border-radius: 12px;">
                 <i class="bi bi-box-arrow-right" style="font-size: 3.2rem;"></i>
@@ -281,5 +255,20 @@ $stmt->close();
 <footer>&copy; 2025 IamOnCampus. All rights reserved.</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+setInterval(function(){
+    $.get("../Chat/check_new_messages.php", function(data){
+        try {
+            let res = JSON.parse(data);
+            if(res.count && res.count > 0) {
+                $("#message-notif").text(res.count).show();
+            } else {
+                $("#message-notif").hide().text('');
+            }
+        } catch(e) { console.error(e); }
+    });
+}, 2000);
+</script>
 </body>
 </html>
