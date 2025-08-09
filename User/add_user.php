@@ -6,14 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fname = $_POST['fname'];
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password_plain = $_POST['password']; // Keep plain for email
+    $password_hashed = password_hash($password_plain, PASSWORD_DEFAULT);
     $role = $_POST['role'];
     $dept = $_POST['dept'];
     $email = $_POST['email'];
 
     // Insert into Users table
     $stmt = $conn->prepare("INSERT INTO Users (F_name, M_name, L_name, Passwords, Role, DeptName) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $fname, $mname, $lname, $password, $role, $dept);
+    $stmt->bind_param("ssssss", $fname, $mname, $lname, $password_hashed, $role, $dept);
 
     if ($stmt->execute()) {
         $user_id = $stmt->insert_id;
@@ -23,7 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_email->bind_param("is", $user_id, $email);
         $stmt_email->execute();
 
-        $_SESSION['success'] = "User added successfully.";
+        // Send email to the new user
+        $subject = "Your New IamOnCampus Account";
+        $message = "Hello $fname $lname,\n\n".
+                   "An account has been created for you on IamOnCampus.\n\n".
+                   "Login Email: $email\n".
+                   "Password: $password_plain\n\n".
+                   "Please log in and change your password immediately for security.\n".
+                   "Login here: https://yourwebsite.com/login\n\n".
+                   "Regards,\nIamOnCampus Admin";
+
+        $headers = "From: admin@iamoncampus.com\r\n";
+        $headers .= "Reply-To: admin@iamoncampus.com\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+        // Send mail (make sure your server supports it or use SMTP/PHPMailer)
+        mail($email, $subject, $message, $headers);
+
+        $_SESSION['success'] = "User added successfully and email sent.";
         header("Location: manage_users.php");
         exit;
     } else {
@@ -31,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
