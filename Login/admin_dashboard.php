@@ -68,6 +68,7 @@ margin-bottom: 6px;
 font-size: 0.9rem;
 color: #2c3e50;
 }
+
 footer {
 text-align: center;
 padding: 15px 0;
@@ -118,7 +119,7 @@ View all users, add new users, edit user info (including passwords), and delete 
 <div class="card text-center">
 <i class="bi bi-pencil-square"></i>
 <h5 class="card-title">Moderate Content</h5>
-<p class="card-text">Manage forums, skills, events, posts.</p>
+<p class="card-text">Manage forums, skills,posts.</p>
 </div>
 </a>
 
@@ -139,13 +140,25 @@ View all users, add new users, edit user info (including passwords), and delete 
 </a>
 
 
-<a href="admin_events.php" class="col-md-4 card-link">
-<div class="card text-center">
-<i class="bi bi-calendar-event-fill"></i>
-<h5 class="card-title">Events Management</h5>
-<p class="card-text">Create and update campus events.</p>
+<!-- Club & Event Management -->
+<div class="col-md-4">
+    <div class="dropdown">
+        <a class="card-link text-decoration-none" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+            <div class="card text-center">
+                <i class="bi bi-people"></i>
+                <h5 class="card-title mt-2 mb-0">Club & Event Management</h5>
+                <p class="card-text">Manage campus clubs and events.</p>
+            </div>
+        </a>
+        <ul class="dropdown-menu w-100 text-center">
+            <li><a class="dropdown-item" href="../Club/create_club.php">Create Club</a></li>
+            <li><a class="dropdown-item" href="../Club/manage_events.php">Manage Events</a></li>
+            <li><a class="dropdown-item" href="../Club/search_clubs.php">Search Clubs</a></li>
+            <li><a class="dropdown-item" href="../Club/search_events.php">Search Events</a></li>
+        </ul>
+    </div>
 </div>
-</a>
+
 
 <!-- Messages -->
 <a href="../Chat/chat_list.php" class="col-md-4 card-link position-relative">

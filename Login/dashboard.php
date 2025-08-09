@@ -173,14 +173,26 @@ $stmt->close();
             </div>
         </a>
 
-        <!-- Clubs & Events -->
-        <a href="clubs_events.php" class="col-md-4 card-link">
+         <!-- Clubs & Events -->
+<div class="col-md-4">
+    <div class="dropdown">
+        <a class="card-link text-decoration-none" data-bs-toggle="dropdown" role="button" aria-expanded="false">
             <div class="card text-center">
                 <i class="bi bi-people"></i>
-                <h5 class="card-title">Clubs & Events</h5>
+                <h5 class="card-title mt-2 mb-0">Clubs & Events</h5>
                 <p class="card-text">Join campus activities & clubs.</p>
             </div>
         </a>
+        <ul class="dropdown-menu w-100 text-center">
+            <li><a class="dropdown-item" href="../Club/browse_events.php">Browse Upcoming Events</a></li>
+            <li><a class="dropdown-item" href="../Club/my_events.php">My Registered Events</a></li>
+            <li><a class="dropdown-item" href="../Club/search_events.php">Search Events</a></li>
+            <li><a class="dropdown-item" href="../Club/search_clubs.php">Search Clubs</a></li>
+        </ul>
+    </div>
+</div>
+
+
 
         <!-- Community Discussion -->
         <a href="community.php" class="col-md-4 card-link">
