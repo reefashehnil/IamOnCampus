@@ -44,17 +44,26 @@ if ($skill['User_id'] == $_SESSION['user_id']) {
         // Insert request
         $insert_stmt = $conn->prepare("INSERT INTO Skill_Requests (Skill_id, User_id) VALUES (?, ?)");
         $insert_stmt->bind_param("ii", $skill_id, $requester_id);
-        if ($insert_stmt->execute()) {
-            // Insert notification
-            $message = "New request for your skill '" . $skill['Skill_name'] . "' by user ID " . $requester_id;
-            $notif_stmt = $conn->prepare("INSERT INTO Notifications (Message, User_id) VALUES (?, ?)");
-            $notif_stmt->bind_param("si", $message, $owner_id);
-            $notif_stmt->execute();
+       if ($insert_stmt->execute()) {
+    // Fetch requester name
+    $name_stmt = $conn->prepare("SELECT F_name, L_name FROM users WHERE User_id = ?");
+    $name_stmt->bind_param("i", $requester_id);
+    $name_stmt->execute();
+    $name_result = $name_stmt->get_result();
+    $requester_name = "Unknown User";
+    if ($name_row = $name_result->fetch_assoc()) {
+        $requester_name = $name_row['F_name'] . ' ' . $name_row['L_name'];
+    }
+    
+    // Insert notification with name + ID
+    $message = "New request for your skill '" . $skill['Skill_name'] . "' by " . $requester_name . " (User ID: " . $requester_id . ")";
+    $notif_stmt = $conn->prepare("INSERT INTO Notifications (Message, User_id) VALUES (?, ?)");
+    $notif_stmt->bind_param("si", $message, $owner_id);
+    $notif_stmt->execute();
 
-            $success = "Request sent successfully.";
-        } else {
-            $error = "Error sending request: " . $conn->error;
-        }
+    $success = "Request sent successfully.";
+}
+
     }
 }
 ?>

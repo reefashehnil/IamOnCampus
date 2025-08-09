@@ -20,8 +20,8 @@ if ($message_text != '') {
     $name_result = $name_stmt->get_result()->fetch_assoc();
     $sender_name = $name_result['F_name'] . ' ' . $name_result['L_name'];
 
-    // Add notification
-    $notif_msg = "New message from $sender_name";
+    // Add notification with name and ID
+    $notif_msg = "New message from $sender_name (User ID: $sender_id)";
     $notify = $conn->prepare("INSERT INTO notifications (Seen_status, Message, User_id) VALUES (0, ?, ?)");
     $notify->bind_param("si", $notif_msg, $receiver_id);
     $notify->execute();
