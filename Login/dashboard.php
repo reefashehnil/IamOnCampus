@@ -164,14 +164,17 @@ $stmt->close();
             </div>
         </div>
 
-        <!-- Academic Forum -->
-        <a href="forum.php" class="col-md-4 card-link">
-            <div class="card text-center">
-                <i class="bi bi-journal-text"></i>
-                <h5 class="card-title">Academic Forum</h5>
-                <p class="card-text">Ask questions & share resources.</p>
-            </div>
-        </a>
+        
+        <!-- Academic Forum Search -->
+<div class="col-md-4">
+    <a href="../Threads/academic_search.php" class="card-link text-decoration-none">
+        <div class="card text-center">
+            <i class="bi bi-journal-bookmark" style="font-size: 2rem;"></i>
+            <h5 class="card-title mt-2 mb-0">Academic Forum</h5>
+            <p class="card-text">Search academic posts by course or tags.</p>
+        </div>
+    </a>
+</div>
 
          <!-- Clubs & Events -->
 <div class="col-md-4">
@@ -194,14 +197,16 @@ $stmt->close();
 
 
 
-        <!-- Community Discussion -->
-        <a href="community.php" class="col-md-4 card-link">
-            <div class="card text-center">
-                <i class="bi bi-chat-left-dots"></i>
-                <h5 class="card-title">Community Discussion</h5>
-                <p class="card-text">Start or join discussions.</p>
-            </div>
-        </a>
+       <!-- Discussion Forum Search -->
+<div class="col-md-4">
+    <a href="../Threads/discussion_search.php" class="card-link text-decoration-none">
+        <div class="card text-center">
+            <i class="bi bi-chat-left-text" style="font-size: 2rem;"></i>
+            <h5 class="card-title mt-2 mb-0">Discussion Forum</h5>
+            <p class="card-text">Search discussion threads by topic or tags.</p>
+        </div>
+    </a>
+</div>
 
         <!-- Search Platform -->
         <a href="search.php" class="col-md-4 card-link">
