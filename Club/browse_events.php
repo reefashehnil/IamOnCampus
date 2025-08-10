@@ -16,7 +16,7 @@ $events = $conn->query("SELECT * FROM events ORDER BY Event_date ASC");
 <body class="bg-light">
 <div class="container mt-4">
     <a href="<?= $dashboardLink ?>" class="btn btn-secondary mb-3">
-        <i class="bi bi-arrow-left"></i> Back to Dashboard
+        Back to Dashboard
     </a>
     <h2 class="mb-4 text-primary"><i class="bi bi-calendar-event"></i> Upcoming Events</h2>
     <div class="row">
