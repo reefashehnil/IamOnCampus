@@ -192,7 +192,7 @@ while ($row = $users_result->fetch_assoc()) {
         </tbody>
     </table>
 
-    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mt-3">Back to Admin Dashboard</a>
+    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

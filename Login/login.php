@@ -30,6 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['fname'] = $user['F_name'];
                 $_SESSION['role'] = $user['Role'];
 
+                // ✅ Record login in login_history
+                $log_stmt = $conn->prepare("
+                    INSERT INTO login_history (Login_time, User_id)
+                    VALUES (NOW(), ?)
+                ");
+                $log_stmt->bind_param("i", $_SESSION['user_id']);
+                $log_stmt->execute();
+                $log_stmt->close();
+
+                // Redirect based on role
                 if ($user['Role'] === 'Admin') {
                     header("Location:admin_dashboard.php");
                     exit();
@@ -47,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

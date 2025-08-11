@@ -165,7 +165,7 @@ $stmt->close();
         </div>
 
         
-        <!-- Academic Forum Search -->
+          <!-- Academic Forum Search -->
 <div class="col-md-4">
     <a href="../Threads/academic_search.php" class="card-link text-decoration-none">
         <div class="card text-center">
@@ -174,7 +174,8 @@ $stmt->close();
             <p class="card-text">Search academic posts by course or tags.</p>
         </div>
     </a>
-</div>
+</div> 
+
 
          <!-- Clubs & Events -->
 <div class="col-md-4">
@@ -195,9 +196,7 @@ $stmt->close();
     </div>
 </div>
 
-
-
-       <!-- Discussion Forum Search -->
+<!-- Discussion Forum Search -->
 <div class="col-md-4">
     <a href="../Threads/discussion_search.php" class="card-link text-decoration-none">
         <div class="card text-center">
@@ -208,6 +207,7 @@ $stmt->close();
     </a>
 </div>
 
+      
         <!-- Search Platform -->
         <a href="search.php" class="col-md-4 card-link">
             <div class="card text-center">

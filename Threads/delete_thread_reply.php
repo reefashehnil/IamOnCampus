@@ -12,3 +12,4 @@ $stmt->execute();
 
 header("Location: view_thread.php?id=" . $thread_id);
 exit;
+?>

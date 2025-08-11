@@ -115,7 +115,7 @@ View all users, add new users, edit user info (including passwords), and delete 
 </div>
 </a>
 
-<a href="moderate_content.php" class="col-md-4 card-link">
+<a href="../Threads/moderate_content.php" class="col-md-4 card-link">
 <div class="card text-center">
 <i class="bi bi-pencil-square"></i>
 <h5 class="card-title">Moderate Content</h5>
@@ -123,7 +123,7 @@ View all users, add new users, edit user info (including passwords), and delete 
 </div>
 </a>
 
-<a href="reports.php" class="col-md-4 card-link">
+<a href="../Reports/admin_reports.php" class="col-md-4 card-link">
 <div class="card text-center">
 <i class="bi bi-bar-chart-line-fill"></i>
 <h5 class="card-title">View Reports</h5>

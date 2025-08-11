@@ -12,3 +12,4 @@ $stmt->execute();
 
 header("Location: view_academic_post.php?id=" . $post_id);
 exit;
+?>
