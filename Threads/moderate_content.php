@@ -21,8 +21,9 @@ include '../Connection/db_connect.php';
 
     <!-- Academic Forum -->
     <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            Academic Forum Posts
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <span>Academic Forum Posts</span>
+            <a href="add_academic_post.php" class="btn btn-light btn-sm">+ Add Post</a>
         </div>
         <div class="card-body p-0">
             <table class="table table-hover table-bordered m-0">
@@ -31,22 +32,22 @@ include '../Connection/db_connect.php';
                         <th>Title</th>
                         <th>Content</th>
                         <th>Course</th>
-                        <th style="width:150px;">Actions</th>
+                        <th style="width:180px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
-                $result = $conn->query("SELECT * FROM academic_posts");
+                $result = $conn->query("SELECT * FROM academic_posts ORDER BY Post_id DESC");
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>{$row['Acd_title']}</td>
-                            <td>{$row['Acd_content']}</td>
-                            <td>{$row['Course']}</td>
-                            <td>
-                                <a href='edit_academic_post.php?Post_id={$row['Post_id']}' class='btn btn-sm btn-warning'>Edit</a>
-                                <a href='delete_academic_post.php?Post_id={$row['Post_id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Delete this post?\")'>Delete</a>
-                            </td>
+                        <td>{$row['Acd_title']}</td>
+                        <td>{$row['Acd_content']}</td>
+                        <td>{$row['Course']}</td>
+                        <td>
+                            <a href='edit_academic_post.php?Post_id={$row['Post_id']}' class='btn btn-sm btn-warning'>Edit</a>
+                            <a href='delete_academic_post.php?Post_id={$row['Post_id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Delete this post?\")'>Delete</a>
+                        </td>
                         </tr>";
                     }
                 } else {
@@ -60,8 +61,9 @@ include '../Connection/db_connect.php';
 
     <!-- Discussion Threads -->
     <div class="card">
-        <div class="card-header bg-success text-white">
-            Discussion Threads
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <span>Discussion Threads</span>
+            <a href="add_discussion_thread.php" class="btn btn-light btn-sm">+ Add Thread</a>
         </div>
         <div class="card-body p-0">
             <table class="table table-hover table-bordered m-0">
@@ -70,22 +72,22 @@ include '../Connection/db_connect.php';
                         <th>Title</th>
                         <th>Content</th>
                         <th>Tag</th>
-                        <th style="width:150px;">Actions</th>
+                        <th style="width:180px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
-                $result = $conn->query("SELECT * FROM discussion_threads");
+                $result = $conn->query("SELECT * FROM discussion_threads ORDER BY Thread_id DESC");
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>{$row['Dt_title']}</td>
-                            <td>{$row['Dt_content']}</td>
-                            <td>{$row['Dt_tag']}</td>
-                            <td>
-                                <a href='edit_thread.php?Thread_id={$row['Thread_id']}' class='btn btn-sm btn-warning'>Edit</a>
-                                <a href='delete_thread.php?Thread_id={$row['Thread_id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Delete this thread?\")'>Delete</a>
-                            </td>
+                        <td>{$row['Dt_title']}</td>
+                        <td>{$row['Dt_content']}</td>
+                        <td>{$row['Dt_tag']}</td>
+                        <td>
+                            <a href='edit_thread.php?Thread_id={$row['Thread_id']}' class='btn btn-sm btn-warning'>Edit</a>
+                            <a href='delete_thread.php?Thread_id={$row['Thread_id']}' class='btn btn-sm btn-danger' onclick='return confirm(\"Delete this thread?\")'>Delete</a>
+                        </td>
                         </tr>";
                     }
                 } else {

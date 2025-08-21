@@ -213,7 +213,7 @@ $stmt->close();
             <div class="card text-center">
                 <i class="bi bi-search"></i>
                 <h5 class="card-title">Search Platform</h5>
-                <p class="card-text">Find skills, events, posts & more.</p>
+                <p class="card-text">Find people to connect.</p>
             </div>
         </a>
 

@@ -2,91 +2,84 @@
 session_start();
 include '../Connection/db_connect.php';
 
-// Only allow admin
+// Only admin allowed
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
-    header("Location: ../login.php");
+    header("Location: ../Login/login.php");
     exit;
 }
 
-// Handle messages from add/edit/delete actions
-$success = $_SESSION['success'] ?? '';
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['success'], $_SESSION['error']);
+// Sorting option
+$sort = $_GET['sort'] ?? 'name';   // default to name
 
-// Fetch all users (use actual column names)
-$sql = "SELECT User_id, F_name AS fname, M_name AS mname, L_name AS lname, Role, DeptName FROM Users ORDER BY User_id ASC";
-$result = $conn->query($sql);
+switch ($sort) {
+    case 'dept':
+        $order = "u.DeptName ASC, u.F_name ASC, u.L_name ASC";
+        break;
+    case 'name':
+    default:
+        $order = "u.F_name ASC, u.L_name ASC";
+        break;
+}
+
+
+// Join users with user_emails
+$users = $conn->query("
+    SELECT u.User_id, u.F_name, u.M_name, u.L_name, u.DeptName, u.Role, e.Email
+    FROM users u
+    LEFT JOIN user_emails e ON u.User_id = e.User_id
+    ORDER BY $order
+")->fetch_all(MYSQLI_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Manage Users | Admin - IamOnCampus</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container mt-5" style="max-width: 1000px;">
-    <h2 class="mb-4">Manage Users</h2>
-
-    <?php if ($success): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-    <?php endif; ?>
-
-    <?php if ($error): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-
-    <div class="mb-3">
-        <a href="add_user.php" class="btn btn-success">
-            <i class="bi bi-person-plus-fill"></i> Add New User
-        </a>
-        <a href="../Login/admin_dashboard.php" class="btn btn-secondary float-end">Back to Dashboard</a>
+<body class="p-4">
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Manage Users</h3>
+        <a href="../Login/admin_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
     </div>
 
-    <table class="table table-bordered table-hover align-middle">
-        <thead class="table-light">
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <a href="add_user.php" class="btn btn-success">Add User</a>
+        </div>
+        <form method="get" class="d-flex">
+            <label class="me-2 fw-bold">Sort By:</label>
+            <select name="sort" class="form-select" onchange="this.form.submit()">
+                
+                <option value="name" <?= $sort=="name"?"selected":"" ?>>Name</option>
+                <option value="dept" <?= $sort=="dept"?"selected":"" ?>>Department</option>
+            </select>
+        </form>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
             <tr>
                 <th>User ID</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Department</th>
+                <th>Email</th>
                 <th>Role</th>
-                <th style="width: 180px;">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php if ($result && $result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['User_id']) ?></td>
-                        <td><?= htmlspecialchars($row['fname']) ?></td>
-                        <td><?= htmlspecialchars($row['mname']) ?></td>
-                        <td><?= htmlspecialchars($row['lname']) ?></td>
-                        <td><?= htmlspecialchars($row['DeptName']) ?></td>
-                        <td><?= htmlspecialchars($row['Role']) ?></td>
-                        <td>
-                            <a href="edit_user.php?id=<?= $row['User_id'] ?>" class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <form method="POST" action="delete_user.php" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                <input type="hidden" name="user_id" value="<?= $row['User_id'] ?>" />
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash-fill"></i> Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr><td colspan="7" class="text-center">No users found.</td></tr>
-            <?php endif; ?>
+            <?php foreach ($users as $u) { ?>
+                <tr>
+                    <td><?= htmlspecialchars($u['User_id']) ?></td>
+                    <td><?= htmlspecialchars(trim($u['F_name'] . " " . $u['M_name'] . " " . $u['L_name'])) ?></td>
+                    <td><?= htmlspecialchars($u['DeptName']) ?></td>
+                    <td><?= htmlspecialchars($u['Email'] ?? '-') ?></td>
+                    <td><?= htmlspecialchars($u['Role'] ?? '-') ?></td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
