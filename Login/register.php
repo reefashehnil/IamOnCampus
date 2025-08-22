@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <meta charset="UTF-8">
 <title>Register | IamOnCampus</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 <style>
 body {
     background: linear-gradient(135deg, #0d0d0d 0%, #4b0082 100%);
@@ -108,7 +108,30 @@ body {
 /* Password field adjustments */
 .position-relative { position:relative; }
 .password-input { padding-right: 45px; color: #fff !important; }
+.password-input::placeholder {
+    color: #fff !important;
+    opacity: 0.7;
+}
+.password-input::-webkit-input-placeholder {
+    color: #fff !important;
+    opacity: 0.7;
+}
+.password-input::-moz-placeholder {
+    color: #fff !important;
+    opacity: 0.7;
+}
+.password-input::-ms-input-placeholder {
+    color: #fff !important;
+    opacity: 0.7;
+}
 .input-icon { position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#fff !important; font-size:1.1rem; pointer-events:auto; }
+
+/* Hide browser default password toggle icons */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
+}
 
 /* Buttons */
 .btn-primary { background: linear-gradient(135deg,#4b0082 0%,#8a2be2 100%); border:none; border-radius:10px; padding:12px; font-weight:600; transition:all 0.3s ease; }
@@ -160,8 +183,7 @@ footer { color:#e0c3fc; text-align:center; margin-top:20px; }
 
             <div class="mb-3 position-relative">
                 <input type="password" id="password" name="password" class="form-control password-input" required minlength="6" placeholder="At least 6 characters">
-                <!-- Single eye icon -->
-                <i class="fas fa-eye input-icon" id="togglePassword"></i>
+                <i class="fas fa-eye input-icon" id="togglePassword" aria-label="Toggle password visibility"></i>
             </div>
 
             <div class="mb-3">
