@@ -29,11 +29,11 @@ if ($user_role === 'Admin') {
 
 $stmt = $conn->prepare("
     SELECT u.User_id, u.F_name, u.L_name, u.DP,
-           (SELECT Message_text FROM messages 
-            WHERE (Sender_id = u.User_id AND Receiver_id = ?) 
+           (SELECT Message_text FROM messages
+            WHERE (Sender_id = u.User_id AND Receiver_id = ?)
                OR (Sender_id = ? AND Receiver_id = u.User_id)
             ORDER BY Timestamp DESC LIMIT 1) AS last_message,
-           (SELECT COUNT(*) FROM messages 
+           (SELECT COUNT(*) FROM messages
             WHERE Sender_id = u.User_id AND Receiver_id = ? AND Seen_status = 0) AS unread_count
     FROM users u
     WHERE u.User_id != ?
@@ -49,24 +49,66 @@ $result = $stmt->get_result();
     <title>Messages</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: #f0f2f5; font-family: Arial; }
+        body { 
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            font-family: Arial; 
+        }
         .title-bar {
             max-width: 600px;
             margin: 20px auto 10px auto;
             font-size: 1.8rem;
             font-weight: bold;
-            color: #333;
+            color: #fff; /* White text for contrast */
             text-align: left;
         }
-        .chat-list { max-width: 600px; margin: 0 auto 20px auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .chat-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #ddd; text-decoration: none; color: inherit; transition: background 0.2s; }
-        .chat-item:hover { background: #f5f5f5; }
-        .chat-item img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 10px; }
-        .chat-info { flex: 1; }
-        .chat-info .name { font-weight: bold; }
-        .chat-info .last-msg { font-size: 0.9rem; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .badge { font-size: 0.75rem; }
-        .back-btn { display: block; max-width: 600px; margin: 0 auto 20px auto; }
+        .chat-list { 
+            max-width: 600px; 
+            margin: 0 auto 20px auto; 
+            background: #2c1e3f; /* Dark violet shade */
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+        }
+        .chat-item { 
+            display: flex; 
+            align-items: center; 
+            padding: 10px; 
+            border-bottom: 1px solid #4a3066; /* Violet-tinted border */
+            text-decoration: none; 
+            color: #fff; /* White text for contrast */
+            transition: background 0.2s; 
+        }
+        .chat-item:hover { 
+            background: #3a2a5a; /* Lighter violet shade on hover */
+        }
+        .chat-item img { 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            margin-right: 10px; 
+        }
+        .chat-info { 
+            flex: 1; 
+        }
+        .chat-info .name { 
+            font-weight: bold; 
+        }
+        .chat-info .last-msg { 
+            font-size: 0.9rem; 
+            color: #ccc; /* Light gray for contrast */
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+        .badge { 
+            font-size: 0.75rem; 
+        }
+        .back-btn { 
+            display: block; 
+            max-width: 600px; 
+            margin: 0 auto 20px auto; 
+        }
     </style>
 </head>
 <body>
@@ -76,20 +118,20 @@ $result = $stmt->get_result();
 <a href="<?= htmlspecialchars($dashboard_link) ?>" class="btn btn-secondary back-btn"> Back to Dashboard</a>
 
 <div class="chat-list">
-<?php while($row = $result->fetch_assoc()): ?>
-    <a href="chat.php?id=<?= $row['User_id'] ?>" class="chat-item">
-        <img src="../DP_uploads/<?= htmlspecialchars($row['DP'] ?: 'default.jpg') ?>" alt="">
-        <div class="chat-info">
-            <div class="name"><?= htmlspecialchars($row['F_name'] . ' ' . $row['L_name']) ?></div>
-            <div class="last-msg">
-                <?= htmlspecialchars($row['last_message'] ?: 'No messages yet') ?>
+    <?php while($row = $result->fetch_assoc()): ?>
+        <a href="chat.php?id=<?= $row['User_id'] ?>" class="chat-item">
+            <img src="../DP_Uploads/<?= htmlspecialchars($row['DP'] ?: 'default.jpg') ?>" alt="">
+            <div class="chat-info">
+                <div class="name"><?= htmlspecialchars($row['F_name'] . ' ' . $row['L_name']) ?></div>
+                <div class="last-msg">
+                    <?= htmlspecialchars($row['last_message'] ?: 'No messages yet') ?>
+                </div>
             </div>
-        </div>
-        <?php if ($row['unread_count'] > 0): ?>
-            <span class="badge bg-danger"><?= $row['unread_count'] ?></span>
-        <?php endif; ?>
-    </a>
-<?php endwhile; ?>
+            <?php if ($row['unread_count'] > 0): ?>
+                <span class="badge bg-danger"><?= $row['unread_count'] ?></span>
+            <?php endif; ?>
+        </a>
+    <?php endwhile; ?>
 </div>
 
 </body>

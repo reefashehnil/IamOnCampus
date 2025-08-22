@@ -13,7 +13,6 @@ $profile_error = $profile_success = "";
 $pass_error = $pass_success = "";
 $error = "";
 
-
 // Handle Profile Update
 if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
     $fname = trim($_POST['fname'] ?? '');
@@ -22,6 +21,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
     $dept = trim($_POST['dept'] ?? '');
     $role = trim($_POST['role'] ?? '');
     $email = trim($_POST['email'] ?? '');
+    $about_me = trim($_POST['about_me'] ?? ''); // New field for about_me
 
     if (!$fname || !$lname || !$dept || !$role || !$email) {
         $profile_error = "Please fill in all required fields.";
@@ -40,8 +40,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
         } else {
             $stmt->close();
 
-            $stmt = $conn->prepare("UPDATE Users SET F_name=?, M_name=?, L_name=?, DeptName=?, Role=? WHERE User_id=?");
-            $stmt->bind_param("sssssi", $fname, $mname, $lname, $dept, $role, $user_id);
+            $stmt = $conn->prepare("UPDATE Users SET F_name=?, M_name=?, L_name=?, DeptName=?, Role=?, about_me=? WHERE User_id=?");
+            $stmt->bind_param("ssssssi", $fname, $mname, $lname, $dept, $role, $about_me, $user_id); // Added about_me
 
             if ($stmt->execute()) {
                 // Update email in User_Emails table
@@ -55,36 +55,34 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
                     $profile_error = "Failed to update email.";
                 }
                 $stmt2->close();
-        
             } else {
                 $profile_error = "Failed to update profile: " . $stmt->error;
                 $stmt->close();
             }
             // Handle DP upload
-    if (isset($_FILES["dp"]) && $_FILES["dp"]["error"] == 0) {
-        $target_dir = "../DP_uploads/";
-        $dp_filename = "dp_" . $user_id . ".jpg";
-        $target_file = $target_dir . $dp_filename;
+            if (isset($_FILES["dp"]) && $_FILES["dp"]["error"] == 0) {
+                $target_dir = "../DP_uploads/";
+                $dp_filename = "dp_" . $user_id . ".jpg";
+                $target_file = $target_dir . $dp_filename;
 
-        if ($_FILES["dp"]["size"] <= 2 * 1024 * 1024 && getimagesize($_FILES["dp"]["tmp_name"])) {
-            if (move_uploaded_file($_FILES["dp"]["tmp_name"], $target_file)) {
-                // Update DP filename in database
-                $update_dp_stmt = $conn->prepare("UPDATE Users SET DP = ? WHERE User_id = ?");
-                $update_dp_stmt->bind_param("si", $dp_filename, $user_id);
-                $update_dp_stmt->execute();
+                if ($_FILES["dp"]["size"] <= 2 * 1024 * 1024 && getimagesize($_FILES["dp"]["tmp_name"])) {
+                    if (move_uploaded_file($_FILES["dp"]["tmp_name"], $target_file)) {
+                        // Update DP filename in database
+                        $update_dp_stmt = $conn->prepare("UPDATE Users SET DP = ? WHERE User_id = ?");
+                        $update_dp_stmt->bind_param("si", $dp_filename, $user_id);
+                        $update_dp_stmt->execute();
 
-                $profile_error.= " Display picture updated.";
-            } else {
-                $error .= " Failed to move uploaded file.";
+                        $profile_error .= " Display picture updated.";
+                    } else {
+                        $error .= " Failed to move uploaded file.";
+                    }
+                } else {
+                    $error .= " Invalid or too large display picture (max 2MB).";
+                }
             }
-        } else {
-            $error .= " Invalid or too large display picture (max 2MB).";
         }
     }
 }
-        }
-    }
-
 
 // Handle Password Change
 if (isset($_POST['action']) && $_POST['action'] === 'change_password') {
@@ -122,9 +120,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'change_password') {
     }
 }
 
-// Fetch user data for form prefilling including email
+// Fetch user data for form prefilling including email and about_me
 $stmt = $conn->prepare("
-    SELECT u.F_name, u.M_name, u.L_name, u.DeptName, u.Role, u.DP, ue.Email 
+    SELECT u.F_name, u.M_name, u.L_name, u.DeptName, u.Role, u.DP, ue.Email, u.about_me 
     FROM Users u
     INNER JOIN User_Emails ue ON u.User_id = ue.User_id
     WHERE u.User_id=?
@@ -226,30 +224,28 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
                         </div>
 
                         <div class="mb-3">
-    <label for="dept" class="form-label">Department *</label>
-    <select id="dept" name="dept" class="form-select" required>
-        <?php
-        $departments = [
-            "Accounting & Finance",
-            "Economics",
-            "Management",
-            "Architecture",
-            "Civil & Environmental Engineering",
-            "Electrical & Computer Engineering",
-            "Mathematics & Physics",
-            "English & Modern Languages",
-            "Administration"
-        ];
-        // Use the value from $user['DeptName'] for selected
-        $currentDept = $user['DeptName'] ?? '';
-        foreach ($departments as $department) {
-            $selected = ($currentDept === $department) ? "selected" : "";
-            echo "<option value=\"" . htmlspecialchars($department) . "\" $selected>$department</option>";
-        }
-        ?>
-    </select>
-</div>
-
+                            <label for="dept" class="form-label">Department *</label>
+                            <select id="dept" name="dept" class="form-select" required>
+                                <?php
+                                $departments = [
+                                    "Accounting & Finance",
+                                    "Economics",
+                                    "Management",
+                                    "Architecture",
+                                    "Civil & Environmental Engineering",
+                                    "Electrical & Computer Engineering",
+                                    "Mathematics & Physics",
+                                    "English & Modern Languages",
+                                    "Administration"
+                                ];
+                                $currentDept = $user['DeptName'] ?? '';
+                                foreach ($departments as $department) {
+                                    $selected = ($currentDept === $department) ? "selected" : "";
+                                    echo "<option value=\"" . htmlspecialchars($department) . "\" $selected>$department</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">Role *</label>
@@ -257,6 +253,11 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
                                 <option <?= $user['Role'] === 'Student' ? 'selected' : '' ?>>Student</option>
                                 <option <?= $user['Role'] === 'Admin' ? 'selected' : '' ?>>Admin</option>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tell me something about yourself</label>
+                            <textarea name="about_me" class="form-control" rows="4"><?= htmlspecialchars($user['about_me'] ?? '') ?></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -299,18 +300,16 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
                 </div>
             </div>
             <?php
-
-$role = $_SESSION['role'] ?? '';
-if ($role === 'Admin') {
-    $dashboardPath = '../Login/admin_dashboard.php';
-} elseif ($role === 'Student' || $role === 'User') {
-    $dashboardPath = '../Login/dashboard.php';
-} else {
-    $dashboardPath = '../Login/login.php'; // fallback if not logged in
-}
-?>
-<a href="<?= $dashboardPath ?>" class="btn btn-secondary w-25 mx-auto d-block mt-4">Back to Dashboard</a>
-            
+            $role = $_SESSION['role'] ?? '';
+            if ($role === 'Admin') {
+                $dashboardPath = '../Login/admin_dashboard.php';
+            } elseif ($role === 'Student' || $role === 'User') {
+                $dashboardPath = '../Login/dashboard.php';
+            } else {
+                $dashboardPath = '../Login/login.php'; // fallback if not logged in
+            }
+            ?>
+            <a href="<?= $dashboardPath ?>" class="btn btn-secondary w-25 mx-auto d-block mt-4">Back to Dashboard</a>
         </div>
     </div>
 

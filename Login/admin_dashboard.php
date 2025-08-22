@@ -27,6 +27,38 @@ $msg_stmt->execute();
 $msg_res = $msg_stmt->get_result()->fetch_assoc();
 $unread_msgs = $msg_res['unread_msgs'];
 $msg_stmt->close();
+
+// Fetch users with about_me for the carousel (limit to keep it light) - can be adjusted for admin data
+$users = [];
+$u_stmt = $conn->prepare("
+    SELECT User_id, F_name, L_name, DP, about_me
+    FROM Users
+    WHERE TRIM(about_me) <> ''
+    ORDER BY User_id DESC
+    LIMIT 30
+");
+$u_stmt->execute();
+$u_res = $u_stmt->get_result();
+while ($u = $u_res->fetch_assoc()) {
+    $users[] = $u;
+}
+$u_stmt->close();
+
+// Helper to chunk array (3 cards per slide for desktop)
+function array_chunk_safe($array, $size) {
+    $chunks = [];
+    $chunk = [];
+    foreach ($array as $item) {
+        $chunk[] = $item;
+        if (count($chunk) === $size) {
+            $chunks[] = $chunk;
+            $chunk = [];
+        }
+    }
+    if (!empty($chunk)) $chunks[] = $chunk;
+    return $chunks;
+}
+$slides = array_chunk_safe($users, 3);
 ?>
 
 <!DOCTYPE html>
@@ -80,9 +112,9 @@ $msg_stmt->close();
             gap: 10px;
             transition: background 0.2s ease, color 0.2s ease;
             text-decoration: none;
-            white-space: nowrap; /* Prevent text wrapping */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Add ellipsis for long text */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .sidebar .nav-link:hover, .sidebar .nav-link.active {
             background: #a855f7;
@@ -93,14 +125,14 @@ $msg_stmt->close();
             border: 1px solid #4b0082;
             border-radius: 8px;
             width: 200px;
-            margin-left: 0; /* Reset margin to align properly */
-            left: 0; /* Align dropdown to the left edge of the nav-link */
-            transform: translateX(0); /* Ensure no offset */
+            margin-left: 0;
+            left: 0;
+            transform: translateX(0);
         }
         .sidebar .dropdown-item {
             color: #e0e0e0;
             padding: 10px 15px;
-            white-space: nowrap; /* Prevent wrapping in dropdown items */
+            white-space: nowrap;
         }
         .sidebar .dropdown-item:hover {
             background: #a855f7;
@@ -166,6 +198,63 @@ $msg_stmt->close();
             z-index: 1100;
             display: none;
         }
+        /* Carousel styles */
+        .carousel-wrap {
+            background: #1f1f35;
+            border: 1px solid #3a3a58;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,.25);
+            margin-bottom: 30px;
+        }
+        .carousel-title {
+            font-weight: 700;
+            color: #c084fc;
+            margin: 0 0 14px;
+            text-align: center;
+        }
+        .story-card {
+            background: #2a2a40;
+            border: 1px solid #3a3a58;
+            border-radius: 16px;
+            padding: 25px;
+            width: 350px;
+            box-shadow: 0 8px 18px rgba(0,0,0,.35);
+        }
+        .story-card:nth-child(1) { background-color: #6B46C1; } /* Deep purple */
+        .story-card:nth-child(2) { background-color: #805AD5; } /* Medium purple */
+        .story-card:nth-child(3) { background-color: #4C51BF; } /* Deep blue */
+        .story-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 2px solid #7c3aed;
+        }
+        .story-card .name {
+            font-weight: 700;
+            color: #eae7ff;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .story-card .user-id {
+            color: #a78bfa;
+            font-size: 0.9rem;
+            margin: 0 0 8px;
+        }
+        .story-card .about {
+            color: #d7d7e2;
+            margin-top: 10px;
+            font-size: 0.98rem;
+            line-height: 1.35rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .carousel .carousel-item {
+            transition: transform .6s ease-in-out;
+        }
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-250px);
@@ -181,6 +270,9 @@ $msg_stmt->close();
             }
             .toggle-sidebar {
                 display: block;
+            }
+            .story-card {
+                width: 100%;
             }
         }
     </style>
@@ -260,6 +352,57 @@ $msg_stmt->close();
             <p>Manage the IamOnCampus platform with full administrative control!</p>
             <a href="../User/manage_users.php" class="btn-explore">Explore Now</a>
         </div>
+
+        <!-- carousel -->
+        <div class="carousel-wrap mt-4">
+            <h3 class="carousel-title">Campus Highlights</h3>
+            <?php if (count($slides) === 0): ?>
+                <p class="text-center text-muted mb-0">No profiles yet. Encourage users to update their profiles to be featured here!</p>
+            <?php else: ?>
+            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
+                <div class="carousel-inner">
+                    <?php
+                    $first = true;
+                    foreach ($slides as $slide) :
+                    ?>
+                    <div class="carousel-item<?php echo $first ? ' active' : ''; ?>">
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <?php foreach ($slide as $u):
+                                $name = htmlspecialchars(trim(($u['F_name'] ?? '').' '.($u['L_name'] ?? '')));
+                                $about = htmlspecialchars($u['about_me'] ?? '');
+                                $dpFile = trim($u['DP'] ?? '');
+                                $dpPath = $dpFile ? ("../DP_uploads/" . rawurlencode($dpFile)) : "../assets/default_dp.png";
+                                echo "<!-- Debug: DP = $dpFile, Path = $dpPath -->";
+                            ?>
+                            <div class="story-card">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="<?php echo $dpPath; ?>" alt="Profile Picture" class="avatar">
+                                    <div>
+                                        <div class="name"><?php echo $name ?: 'User'; ?></div>
+                                        <div class="user-id">ID: <?php echo $u['User_id']; ?></div>
+                                    </div>
+                                </div>
+                                <div class="about mt-2"><?php echo nl2br($about); ?></div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <?php
+                    $first = false;
+                    endforeach; ?>
+                </div>
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev" aria-label="Previous">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next" aria-label="Next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+            <?php endif; ?>
+        </div>
+        <!-- /carousel -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -284,6 +427,17 @@ $msg_stmt->close();
                 } catch(e) { console.error(e); }
             });
         }, 2000);
+
+        // Ensure auto-cycling keeps running after manual interaction
+        const aboutCarousel = document.querySelector('#aboutCarousel');
+        if (aboutCarousel) {
+            const carousel = new bootstrap.Carousel(aboutCarousel, {
+                interval: 8000,
+                ride: 'carousel',
+                pause: false,
+                wrap: true
+            });
+        }
     </script>
 </body>
 </html>

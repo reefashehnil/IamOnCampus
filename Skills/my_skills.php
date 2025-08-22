@@ -27,6 +27,58 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <title>My Skills | IamOnCampus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            font-family: Arial;
+            color: #fff; /* White text for contrast */
+        }
+        .container {
+            margin: 0 auto; /* Original margin */
+            padding: 15px; /* Original padding */
+            background: #2c1e3f; /* Dark violet shade */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+        }
+        h2 {
+            color: #fff; /* White text for heading */
+        }
+        .table {
+            background: #3a2a5a; /* Slightly lighter violet for table */
+            color: #fff; /* White text for table content */
+            border: 1px solid #4a3066; /* Violet border */
+        }
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #4a3066; /* Violet borders for table cells */
+        }
+        .table thead th {
+            background: #4a3066; /* Darker violet for table header */
+            color: #fff; /* White text */
+        }
+        .btn-warning {
+            background: #ffcc00; /* Yellow for edit button */
+            border: none;
+            color: #000; /* Black text for contrast */
+        }
+        .btn-warning:hover {
+            background: #e6b800; /* Darker yellow on hover */
+            color: #000;
+        }
+        .btn-danger {
+            background: #ff6666; /* Light red for delete button */
+            border: none;
+            color: #fff; /* White text */
+        }
+        .btn-danger:hover {
+            background: #e65c5c; /* Darker red on hover */
+            color: #fff;
+        }
+        .alert-info {
+            background: #4a3066; /* Violet for info alert */
+            color: #fff; /* White text */
+            border: 1px solid #5a4080; /* Lighter violet border */
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -49,7 +101,6 @@ $result = $stmt->get_result();
                     <td>
                         <a href="edit_skill.php?id=<?= $row['Skill_id'] ?>" class="btn btn-sm btn-warning">Edit</a>
                         <a href="delete_skill.php?id=<?= $row['Skill_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-                        <a href="../Login/dashboard.php" class="btn btn-secondary mt">Back to Dashboard</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
@@ -58,6 +109,8 @@ $result = $stmt->get_result();
     <?php else: ?>
         <div class="alert alert-info">You haven’t added any skills yet.</div>
     <?php endif; ?>
+
+    <a href="../Login/dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
 </div>
 </body>
 </html>

@@ -11,16 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lname = trim($_POST['lname'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
-    $role = 'Student'; 
+    $role = 'Student';
     $dept = trim($_POST['dept'] ?? '');
+    $about_me = trim($_POST['about_me'] ?? '');
 
-    if (!$fname || !$lname || !$email || !$password || !$dept) {
+    // Basic validation
+    if (!$fname || !$lname || !$email || !$password || !$dept || !$about_me) {
         $error = "Please fill in all required fields.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
     } elseif (strlen($password) < 6) {
         $error = "Password must be at least 6 characters.";
+    } elseif (mb_strlen($about_me) > 500) {
+        $error = "Tell something about yourself must be 500 characters or less.";
     } else {
+        // Check duplicate email
         $stmt = $conn->prepare("SELECT User_id FROM User_Emails WHERE Email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -32,12 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO Users (F_name, M_name, L_name, Passwords, Role, DeptName) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $fname, $mname, $lname, $hashed_password, $role, $dept);
+            // Insert into Users with about_me
+            $stmt = $conn->prepare("
+                INSERT INTO Users (F_name, M_name, L_name, Passwords, Role, DeptName, about_me)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ");
+            $stmt->bind_param("sssssss", $fname, $mname, $lname, $hashed_password, $role, $dept, $about_me);
+
             if ($stmt->execute()) {
                 $user_id = $stmt->insert_id;
                 $stmt->close();
 
+                // Save email
                 $stmt2 = $conn->prepare("INSERT INTO User_Emails (User_id, Email) VALUES (?, ?)");
                 $stmt2->bind_param("is", $user_id, $email);
                 if ($stmt2->execute()) {
@@ -54,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,78 +80,35 @@ body {
     color: #fff;
     overflow-x: hidden;
 }
-
-/* Particles */
 .particles { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
 .particle { position:absolute; width:4px; height:4px; background: rgba(200,200,255,0.7); border-radius:50%; animation: float 6s ease-in-out infinite;}
 @keyframes float {0%,100% {transform: translateY(0) rotate(0deg); opacity:0;} 50% {transform: translateY(-100px) rotate(180deg); opacity:1;}}
-
-/* Header */
 .brand-header { font-size:36px; font-weight:700; color:#e0c3fc; text-align:center; padding:20px 0; position:relative; z-index:10; text-shadow:2px 2px 4px rgba(0,0,0,0.7);}
 .brand-header::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100px; height:3px; background: linear-gradient(90deg,#8a2be2,#4b0082); border-radius:2px;}
-
-/* Card */
 .container { max-width:500px; }
 .card { background: rgba(30,0,50,0.95); backdrop-filter: blur(10px); border:none; border-radius:20px; box-shadow:0 15px 35px rgba(0,0,0,0.6); transition:all 0.3s ease; position:relative; z-index:10; }
 .card:hover { transform: translateY(-5px); box-shadow:0 20px 40px rgba(0,0,0,0.5); }
 .card h2 {color:#e0c3fc;}
 .card label, .card .form-label { color:#fff; }
 .card a { color:#8a2be2; font-weight:600; text-decoration:none; }
-
-/* Inputs */
 .form-control, .form-select {
-    border: 2px solid #4b0082;
-    border-radius: 10px;
-    padding: 12px 15px;
-    transition: all 0.3s ease;
-    background: rgba(50,0,50,0.9);
-    color: #fff !important;
+    border: 2px solid #4b0082; border-radius: 10px; padding: 12px 15px;
+    transition: all 0.3s ease; background: rgba(50,0,50,0.9); color: #fff !important;
 }
 .form-control:focus, .form-select:focus {
-    border-color: #8a2be2;
-    box-shadow: 0 0 0 3px rgba(138,43,226,0.2);
-    background: rgba(60,0,60,1);
-    transform: scale(1.02);
-    color: #fff !important;
+    border-color: #8a2be2; box-shadow: 0 0 0 3px rgba(138,43,226,0.2);
+    background: rgba(60,0,60,1); transform: scale(1.02); color: #fff !important;
 }
-
-/* Password field adjustments */
 .position-relative { position:relative; }
 .password-input { padding-right: 45px; color: #fff !important; }
-.password-input::placeholder {
-    color: #fff !important;
-    opacity: 0.7;
-}
-.password-input::-webkit-input-placeholder {
-    color: #fff !important;
-    opacity: 0.7;
-}
-.password-input::-moz-placeholder {
-    color: #fff !important;
-    opacity: 0.7;
-}
-.password-input::-ms-input-placeholder {
-    color: #fff !important;
-    opacity: 0.7;
-}
+.password-input::placeholder { color:#fff !important; opacity: 0.7; }
 .input-icon { position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#fff !important; font-size:1.1rem; pointer-events:auto; }
-
-/* Hide browser default password toggle icons */
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear,
-input[type="password"]::-webkit-textfield-decoration-container {
-    display: none;
-}
-
-/* Buttons */
+input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear, input[type="password"]::-webkit-textfield-decoration-container { display: none; }
 .btn-primary { background: linear-gradient(135deg,#4b0082 0%,#8a2be2 100%); border:none; border-radius:10px; padding:12px; font-weight:600; transition:all 0.3s ease; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(138,43,226,0.4); }
-
-/* Alerts */
 .alert { border-radius:10px; background-color:#2a002a; color:#f0bfff; }
-
-/* Footer */
 footer { color:#e0c3fc; text-align:center; margin-top:20px; }
+.small-help { color:#c9a4ff; font-size: .9rem; }
 </style>
 </head>
 <body>
@@ -202,11 +169,18 @@ footer { color:#e0c3fc; text-align:center; margin-top:20px; }
                         "English & Modern Languages"
                     ];
                     foreach ($departments as $d) {
-                        $selected = (isset($_POST['dept']) && $_POST['dept']==$d) ? "selected" : "";
-                        echo "<option value=\"$d\" $selected>$d</option>";
+                        $selected = (isset($_POST['dept']) && $_POST['dept']===$d) ? "selected" : "";
+                        echo "<option value=\"".htmlspecialchars($d)."\" $selected>".htmlspecialchars($d)."</option>";
                     }
                     ?>
                 </select>
+            </div>
+
+            <!-- NEW: Tell something about yourself -->
+            <div class="mb-3">
+                <label for="about_me" class="form-label">Tell something about yourself *</label>
+                <textarea id="about_me" name="about_me" class="form-control" rows="3" maxlength="500" required><?= htmlspecialchars($_POST['about_me'] ?? '') ?></textarea>
+                <div class="small-help mt-1">Max 500 characters. This will appear on the dashboard gallery.</div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Register</button>
@@ -214,7 +188,7 @@ footer { color:#e0c3fc; text-align:center; margin-top:20px; }
 
         <hr style="margin:30px 0;">
         <div class="text-center">
-            <p style="color:#ffffff;">Already have an account? 
+            <p style="color:#ffffff;">Already have an account?
                 <a href="login.php" style="color:#8a2be2; font-weight:600; text-decoration:none;">Login here <i class="fas fa-arrow-right ms-1"></i></a>
             </p>
         </div>

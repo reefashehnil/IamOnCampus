@@ -22,6 +22,44 @@ $result = $conn->query($sql);
 <meta charset="UTF-8" />
 <title>Available Skills | IamOnCampus</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    body {
+        background-color: #1a0d2b; /* Dark violet-black background */
+        color: #e6e6fa; /* Light lavender text for readability */
+    }
+    .container {
+        background-color: #2a1b3d; /* Slightly lighter dark shade */
+        border-radius: 10px;
+        padding: 20px;
+    }
+    .table {
+        background-color: #3c2f5c; /* Dark purple table background */
+        color: #e6e6fa;
+    }
+    .table-bordered {
+        border-color: #5a4b7c; /* Medium purple borders */
+    }
+    .table-bordered th,
+    .table-bordered td {
+        border-color: #5a4b7c;
+    }
+    .table thead th {
+        background-color: #4b3c7a; /* Violet header background */
+        color: #ffffff;
+    }
+    .btn-warning {
+        background-color: #9370db; /* Medium purple button */
+        border-color: #9370db;
+        color: #ffffff;
+    }
+    .btn-warning:hover {
+        background-color: #7b68ee; /* Lighter purple on hover */
+        border-color: #7b68ee;
+    }
+    h2 {
+        color: #d8bfd8; /* Thistle color for heading */
+    }
+</style>
 </head>
 <body>
 <div class="container mt-5">
@@ -51,7 +89,6 @@ $result = $conn->query($sql);
                         <td>
                             <?php if ((int)$skill['User_id'] !== (int)$_SESSION['user_id']): ?>
                                 <a href="request_skill.php?id=<?= $skill['Skill_id'] ?>" class="btn btn-sm btn-warning">Request</a>
-
                             <?php else: ?>
                                 <!-- No buttons shown for own skills -->
                             <?php endif; ?>

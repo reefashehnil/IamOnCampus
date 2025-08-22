@@ -54,6 +54,82 @@ $replies = $stmt->get_result();
     <title><?= htmlspecialchars($post['Acd_title']) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            font-family: Arial;
+            color: #fff; /* White text for contrast */
+        }
+        .container {
+            margin: 0 auto; /* Original margin */
+            padding: 15px; /* Original padding */
+            background: #2c1e3f; /* Dark violet shade */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+        }
+        .card {
+            background: #3a2a5a; /* Slightly lighter violet for cards */
+            border: 1px solid #4a3066; /* Violet border */
+            color: #fff; /* White text for card content */
+        }
+        .card-body {
+            background: #3a2a5a; /* Match card background */
+        }
+        .fw-bold {
+            color: #fff; /* White for bold text (e.g., post title, "Replies") */
+        }
+        .text-muted {
+            color: #ccc !important; /* Light gray for muted text (e.g., author, course, date) */
+        }
+        .btn-success {
+            background: #4a3066; /* Violet for submit button */
+            border: none;
+            color: #fff; /* White text */
+        }
+        .btn-success:hover {
+            background: #5a4080; /* Lighter violet on hover */
+            color: #fff;
+        }
+        .btn-light {
+            background: #4a3066; /* Violet for dropdown button */
+            border: none;
+            color: #fff; /* White text */
+        }
+        .btn-light:hover {
+            background: #5a4080; /* Lighter violet on hover */
+            color: #fff;
+        }
+        .dropdown-menu {
+            background: #3a2a5a; /* Dark violet for dropdown */
+            border: 1px solid #4a3066; /* Violet border */
+        }
+        .dropdown-item {
+            color: #fff; /* White text for dropdown items */
+        }
+        .dropdown-item:hover {
+            background: #4a3066; /* Lighter violet on hover */
+            color: #fff;
+        }
+        .text-danger {
+            color: #ff6666 !important; /* Light red for delete link */
+        }
+        .form-control {
+            background: #3a2a5a; /* Dark violet for textarea */
+            border: 1px solid #4a3066; /* Violet border */
+            color: #fff; /* White text */
+        }
+        .form-control::placeholder {
+            color: #ccc; /* Light gray placeholder text */
+        }
+        .form-label {
+            color: #fff; /* White for form label */
+        }
+        .alert-warning {
+            background: #ff6666; /* Light red for warning */
+            color: #fff; /* White text */
+            border: 1px solid #4a3066; /* Violet border */
+        }
+    </style>
 </head>
 <body class="container mt-4">
 

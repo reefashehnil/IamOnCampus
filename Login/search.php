@@ -39,6 +39,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search'])) {
     <meta charset="UTF-8">
     <title>Search Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            font-family: Arial; 
+            color: #fff; /* White text for contrast */
+        }
+        .container { 
+            margin: 0 auto; /* Original margin */
+            background: #2c1e3f; /* Dark violet shade */
+            border-radius: 8px; 
+            padding: 15px; /* Original padding */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+        }
+        h3 { 
+            color: #fff; /* White text for contrast */
+        }
+        .form-control { 
+            background: #3a2a5a; /* Dark violet input background */
+            border: 1px solid #4a3066; /* Violet border */
+            color: #fff; /* White text */
+        }
+        .form-control::placeholder { 
+            color: #ccc; /* Light gray placeholder text */
+        }
+        .btn-primary { 
+            background: #4a3066; /* Violet button */
+            border: none; 
+        }
+        .btn-primary:hover { 
+            background: #5a4080; /* Lighter violet on hover */
+        }
+        .btn-secondary { 
+            background: #3a2a5a; /* Dark violet button */
+            border: none; 
+        }
+        .btn-secondary:hover { 
+            background: #4a3066; /* Lighter violet on hover */
+        }
+        .table { 
+            background: #2c1e3f; /* Dark violet table background */
+            color: #fff; /* White text */
+        }
+        .table-dark { 
+            background: #3a2a5a; /* Slightly lighter violet for table header */
+        }
+        .table-bordered { 
+            border: 1px solid #4a3066; /* Violet border */
+        }
+        .table-bordered th, 
+        .table-bordered td { 
+            border: 1px solid #4a3066; /* Violet cell borders */
+        }
+        .table-striped tbody tr:nth-of-type(odd) { 
+            background: #3a2a5a; /* Slightly lighter violet for striped rows */
+        }
+        .btn-info { 
+            background: #4a3066; /* Violet button */
+            border: none; 
+            color: #fff; /* White text for "View" button */
+        }
+        .btn-info:hover { 
+            background: #5a4080; /* Lighter violet on hover */
+            color: #fff; /* Maintain white text on hover */
+        }
+        .text-danger { 
+            color: #ff6666; /* Light red for error messages */
+        }
+    </style>
 </head>
 <body class="p-4">
     <div class="container">

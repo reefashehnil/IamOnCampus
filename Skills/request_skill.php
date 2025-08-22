@@ -44,26 +44,25 @@ if ($skill['User_id'] == $_SESSION['user_id']) {
         // Insert request
         $insert_stmt = $conn->prepare("INSERT INTO Skill_Requests (Skill_id, User_id) VALUES (?, ?)");
         $insert_stmt->bind_param("ii", $skill_id, $requester_id);
-       if ($insert_stmt->execute()) {
-    // Fetch requester name
-    $name_stmt = $conn->prepare("SELECT F_name, L_name FROM users WHERE User_id = ?");
-    $name_stmt->bind_param("i", $requester_id);
-    $name_stmt->execute();
-    $name_result = $name_stmt->get_result();
-    $requester_name = "Unknown User";
-    if ($name_row = $name_result->fetch_assoc()) {
-        $requester_name = $name_row['F_name'] . ' ' . $name_row['L_name'];
-    }
-    
-    // Insert notification with name + ID
-    $message = "New request for your skill '" . $skill['Skill_name'] . "' by " . $requester_name . " (User ID: " . $requester_id . ")";
-    $notif_stmt = $conn->prepare("INSERT INTO Notifications (Message, User_id) VALUES (?, ?)");
-    $notif_stmt->bind_param("si", $message, $owner_id);
-    $notif_stmt->execute();
+        if ($insert_stmt->execute()) {
+            // Fetch requester name
+            $name_stmt = $conn->prepare("SELECT F_name, L_name FROM users WHERE User_id = ?");
+            $name_stmt->bind_param("i", $requester_id);
+            $name_stmt->execute();
+            $name_result = $name_stmt->get_result();
+            $requester_name = "Unknown User";
+            if ($name_row = $name_result->fetch_assoc()) {
+                $requester_name = $name_row['F_name'] . ' ' . $name_row['L_name'];
+            }
+            
+            // Insert notification with name + ID
+            $message = "New request for your skill '" . $skill['Skill_name'] . "' by " . $requester_name . " (User ID: " . $requester_id . ")";
+            $notif_stmt = $conn->prepare("INSERT INTO Notifications (Message, User_id) VALUES (?, ?)");
+            $notif_stmt->bind_param("si", $message, $owner_id);
+            $notif_stmt->execute();
 
-    $success = "Request sent successfully.";
-}
-
+            $success = "Request sent successfully.";
+        }
     }
 }
 ?>
@@ -74,9 +73,50 @@ if ($skill['User_id'] == $_SESSION['user_id']) {
     <meta charset="UTF-8">
     <title>Request Skill | IamOnCampus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #1a0d2b; /* Dark violet-black background */
+            color: #e6e6fa; /* Light lavender text for readability */
+        }
+        .container {
+            background-color: #2a1b3d; /* Slightly lighter dark shade */
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+        }
+        h2 {
+            color: #d8bfd8; /* Thistle color for heading */
+        }
+        .btn-primary {
+            background-color: #6a5acd; /* Slate blue button */
+            border-color: #6a5acd;
+        }
+        .btn-primary:hover {
+            background-color: #483d8b; /* Darker slate blue on hover */
+            border-color: #483d8b;
+        }
+        .btn-secondary {
+            background-color: #9370db; /* Medium purple button */
+            border-color: #9370db;
+        }
+        .btn-secondary:hover {
+            background-color: #7b68ee; /* Lighter purple on hover */
+            border-color: #7b68ee;
+        }
+        .alert-success {
+            background-color: #4b3c7a; /* Violet success alert */
+            color: #e6e6fa;
+            border-color: #5a4b7c;
+        }
+        .alert-danger {
+            background-color: #5c2f5c; /* Dark purple danger alert */
+            color: #e6e6fa;
+            border-color: #7a4b7c;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5" style="max-width: 600px;">
+<div class="container mt-5">
     <h2>Request Skill: <?= htmlspecialchars($skill['Skill_name']) ?></h2>
 
     <?php if ($error): ?>
