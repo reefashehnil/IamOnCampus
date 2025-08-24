@@ -7,18 +7,61 @@ $dashboardLink = ($_SESSION['role'] === 'Admin') ? "../Login/admin_dashboard.php
 $events = $conn->query("SELECT * FROM events ORDER BY Event_date ASC");
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Browse Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Events | IamOnCampus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=1.0" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css?v=1.0" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #1a0d2b !important; /* Dark violet-black background */
+            color: #e6e6fa !important; /* Light lavender text for readability */
+        }
+        .container {
+            background-color: #2a1b3d !important; /* Slightly lighter dark shade */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px !important;
+        }
+        h2 {
+            color: #d8bfd8 !important; /* Thistle color for heading */
+        }
+        .bi {
+            color: #e6e6fa !important; /* Light lavender for icons */
+        }
+        .card {
+            background-color: #3c2f5c !important; /* Dark purple card background */
+            border-color: #5a4b7c !important; /* Medium purple border */
+            color: #e6e6fa !important; /* Light lavender text */
+        }
+        .card-title {
+            color: #d8bfd8 !important; /* Thistle for card title */
+        }
+        .card-text {
+            color: #e6e6fa !important; /* Light lavender for card text */
+        }
+        .card.shadow {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; /* Darker shadow */
+        }
+        .btn-success {
+            background-color: #6a5acd !important; /* Slate blue button */
+            border-color: #6a5acd !important;
+        }
+        .btn-success:hover {
+            background-color: #483d8b !important; /* Darker slate blue on hover */
+            border-color: #483d8b !important;
+        }
+        /* No custom styles for btn-secondary to keep default Bootstrap styling */
+    </style>
 </head>
-<body class="bg-light">
+<body>
 <div class="container mt-4">
     <a href="<?= $dashboardLink ?>" class="btn btn-secondary mb-3">
         Back to Dashboard
     </a>
-    <h2 class="mb-4 text-primary"><i class="bi bi-calendar-event"></i> Upcoming Events</h2>
+    <h2 class="mb-4"><i class="bi bi-calendar-event"></i> Upcoming Events</h2>
     <div class="row">
         <?php while ($row = $events->fetch_assoc()): ?>
         <div class="col-md-4">

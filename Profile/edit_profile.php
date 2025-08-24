@@ -21,14 +21,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
     $dept = trim($_POST['dept'] ?? '');
     $role = trim($_POST['role'] ?? '');
     $email = trim($_POST['email'] ?? '');
-    $about_me = trim($_POST['about_me'] ?? ''); // New field for about_me
+    $about_me = trim($_POST['about_me'] ?? '');
 
     if (!$fname || !$lname || !$dept || !$role || !$email) {
         $profile_error = "Please fill in all required fields.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $profile_error = "Invalid email format.";
     } else {
-        // Check if email already exists for another user
         $stmt = $conn->prepare("SELECT User_id FROM User_Emails WHERE Email = ? AND User_id != ?");
         $stmt->bind_param("si", $email, $user_id);
         $stmt->execute();
@@ -41,10 +40,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
             $stmt->close();
 
             $stmt = $conn->prepare("UPDATE Users SET F_name=?, M_name=?, L_name=?, DeptName=?, Role=?, about_me=? WHERE User_id=?");
-            $stmt->bind_param("ssssssi", $fname, $mname, $lname, $dept, $role, $about_me, $user_id); // Added about_me
+            $stmt->bind_param("ssssssi", $fname, $mname, $lname, $dept, $role, $about_me, $user_id);
 
             if ($stmt->execute()) {
-                // Update email in User_Emails table
                 $stmt->close();
 
                 $stmt2 = $conn->prepare("UPDATE User_Emails SET Email=? WHERE User_id=?");
@@ -59,19 +57,16 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_profile') {
                 $profile_error = "Failed to update profile: " . $stmt->error;
                 $stmt->close();
             }
-            // Handle DP upload
             if (isset($_FILES["dp"]) && $_FILES["dp"]["error"] == 0) {
-                $target_dir = "../DP_uploads/";
+                $target_dir = "../DP_Uploads/";
                 $dp_filename = "dp_" . $user_id . ".jpg";
                 $target_file = $target_dir . $dp_filename;
 
                 if ($_FILES["dp"]["size"] <= 2 * 1024 * 1024 && getimagesize($_FILES["dp"]["tmp_name"])) {
                     if (move_uploaded_file($_FILES["dp"]["tmp_name"], $target_file)) {
-                        // Update DP filename in database
                         $update_dp_stmt = $conn->prepare("UPDATE Users SET DP = ? WHERE User_id = ?");
                         $update_dp_stmt->bind_param("si", $dp_filename, $user_id);
                         $update_dp_stmt->execute();
-
                         $profile_error .= " Display picture updated.";
                     } else {
                         $error .= " Failed to move uploaded file.";
@@ -122,7 +117,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'change_password') {
 
 // Fetch user data for form prefilling including email and about_me
 $stmt = $conn->prepare("
-    SELECT u.F_name, u.M_name, u.L_name, u.DeptName, u.Role, u.DP, ue.Email, u.about_me 
+    SELECT u.F_name, u.M_name, u.L_name, u.DeptName, u.Role, u.DP, ue.Email, u.about_me
     FROM Users u
     INNER JOIN User_Emails ue ON u.User_id = ue.User_id
     WHERE u.User_id=?
@@ -134,9 +129,9 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 // Determine DP path or fallback
-$dp_path = "../DP_uploads/default.jpg";
-if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
-    $dp_path = "../DP_uploads/" . $user['DP'];
+$dp_path = "../DP_Uploads/default.jpg";
+if (!empty($user['DP']) && file_exists("../DP_Uploads/" . $user['DP'])) {
+    $dp_path = "../DP_Uploads/" . $user['DP'];
 }
 ?>
 
@@ -148,27 +143,79 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
     <title>Edit Profile | IamOnCampus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
         .edit-card {
             max-width: 700px;
             margin: auto;
             margin-top: 40px;
             padding: 30px;
-            background: #f8f9fa;
+            background: #2a2a4a;
             border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
         }
         .form-label {
             font-weight: bold;
+            color: #d8b4fe;
+        }
+        .form-control, .form-select {
+            background-color: #3a3a5a;
+            color: #e0e0e0;
+            border: 1px solid #8b5cf6;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #3a3a5a;
+            color: #e0e0e0;
+            border-color: #a78bfa;
+            box-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
         }
         .profile-pic {
             width: 120px;
             height: 120px;
             object-fit: cover;
-            border: 4px solid #0d6efd;
+            border: 4px solid #8b5cf6;
+        }
+        .nav-tabs .nav-link {
+            color: #e0e0e0;
+            background-color: #3a3a5a;
+            border: 1px solid #8b5cf6;
         }
         .nav-tabs .nav-link.active {
-            background-color: #0d6efd;
-            color: white;
+            background-color: #8b5cf6;
+            color: #ffffff;
+            border-color: #8b5cf6;
+        }
+        .nav-tabs .nav-link:hover {
+            background-color: #4a4a6a;
+            border-color: #a78bfa;
+        }
+        .btn-primary {
+            background-color: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+        .btn-primary:hover {
+            background-color: #a78bfa;
+            border-color: #a78bfa;
+        }
+        .btn-secondary {
+            background-color: #4a4a6a;
+            border-color: #4a4a6a;
+        }
+        .btn-secondary:hover {
+            background-color: #5a5a7a;
+            border-color: #5a5a7a;
+        }
+        .alert-success {
+            background-color: #4a704a;
+            color: #d4edda;
+            border-color: #4a704a;
+        }
+        .alert-danger {
+            background-color: #703a4a;
+            color: #f8d7da;
+            border-color: #703a4a;
         }
     </style>
 </head>
@@ -202,7 +249,7 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
 
                     <form method="POST" enctype="multipart/form-data" novalidate>
                         <input type="hidden" name="action" value="update_profile" />
-                        
+
                         <div class="mb-3">
                             <label class="form-label">First Name *</label>
                             <input type="text" name="fname" class="form-control" required value="<?= htmlspecialchars($user['F_name']) ?>">
@@ -306,7 +353,7 @@ if (!empty($user['DP']) && file_exists("../DP_uploads/" . $user['DP'])) {
             } elseif ($role === 'Student' || $role === 'User') {
                 $dashboardPath = '../Login/dashboard.php';
             } else {
-                $dashboardPath = '../Login/login.php'; // fallback if not logged in
+                $dashboardPath = '../Login/login.php';
             }
             ?>
             <a href="<?= $dashboardPath ?>" class="btn btn-secondary w-25 mx-auto d-block mt-4">Back to Dashboard</a>

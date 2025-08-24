@@ -25,26 +25,174 @@ $posts = $stmt->get_result();
     <title>All User Posts | IamOnCampus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .dp { width: 55px; height: 55px; object-fit: cover; border-radius: 50%; margin-right: 15px; border: 2px solid #1877f2; }
-        .post-card { max-width: 700px; margin: 0 auto 30px auto; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); border: 1px solid #ddd; padding: 20px; background-color: #fff; }
-        .username { font-weight: 600; font-size: 1.2rem; color: #050505; }
-        .post-text { font-size: 1rem; color: #1c1e21; margin-top: 10px; margin-bottom: 15px; white-space: pre-wrap; }
-        img.post-image, video.post-video { max-height: 350px; width: 100%; border-radius: 8px; margin-bottom: 15px; object-fit: cover; }
-        .timestamp { color: #65676b; font-size: 0.85rem; margin-top: 10px; }
-        body { background-color: #f0f2f5; padding-bottom: 50px; }
-        .header-bar { max-width: 700px; margin: 30px auto 20px auto; padding: 0 10px; display: flex; justify-content: space-between; align-items: center; }
-        .header-bar h3 { font-weight: 700; color: #050505; }
-        /* Reaction highlight */
-        .reaction-button { cursor: pointer; padding: 5px 8px; border-radius: 4px; border: 1px solid transparent; background-color: #f8f9fa; margin-right: 5px; }
-        .reaction-button.active { background-color: #ffeeba; border-color: #ffc107; }
-        /* Three-dot menu */
-        .comment-options { position: relative; display: inline-block; }
-        .three-dots-btn { background: none; border: none; cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; }
-        .three-dots-btn span { width: 4px; height: 4px; background-color: #333; border-radius: 50%; display: inline-block; margin: 0 2px; }
-        .comment-options .menu { display: none; position: absolute; background: white; border: 1px solid #ccc; right: 0; min-width: 100px; z-index: 10; box-shadow: 0px 2px 6px rgba(0,0,0,0.15); }
-        .comment-options .menu a { display: block; padding: 5px 10px; text-decoration: none; color: black; }
-        .comment-options .menu a:hover { background: #f1f1f1; }
-        .comment-options.show .menu { display: block; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding-bottom: 50px;
+        }
+        .header-bar {
+            max-width: 700px;
+            margin: 30px auto 20px auto;
+            padding: 0 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2a2a4a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        .header-bar h3 {
+            font-weight: 700;
+            color: #d8b4fe;
+        }
+        .post-card {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            border: 1px solid #8b5cf6;
+            padding: 20px;
+            background-color: #3a3a5a;
+        }
+        .dp {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #8b5cf6;
+        }
+        .username {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #d8b4fe;
+        }
+        .post-text {
+            font-size: 1rem;
+            color: #e0e0e0;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        img.post-image, video.post-video {
+            max-height: 350px;
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+        .timestamp {
+            color: #a3a3c2;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        .text-muted {
+            color: #a3a3c2 !important;
+        }
+        .btn-secondary {
+            background-color: #4a4a6a;
+            border-color: #4a4a6a;
+        }
+        .btn-secondary:hover {
+            background-color: #5a5a7a;
+            border-color: #5a5a7a;
+        }
+        .btn-outline-primary {
+            color: #e0e0e0;
+            border-color: #8b5cf6;
+        }
+        .btn-outline-primary:hover {
+            background-color: #a78bfa;
+            border-color: #a78bfa;
+            color: #e0e0e0;
+        }
+        .form-control {
+            background-color: #2a2a4a;
+            color: #e0e0e0;
+            border: 1px solid #8b5cf6;
+        }
+        .form-control::placeholder {
+            color: #b0a8ff;
+        }
+        .form-control:focus {
+            background-color: #2a2a4a;
+            color: #e0e0e0;
+            border-color: #a78bfa;
+            box-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
+        }
+        .btn-outline-success {
+            color: #d4edda;
+            border-color: #4a704a;
+        }
+        .btn-outline-success:hover {
+            background-color: #4a704a;
+            color: #d4edda;
+        }
+        .reaction-button {
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 4px;
+            border: 1px solid #8b5cf6;
+            background-color: #4a4a6a;
+            color: #e0e0e0;
+            margin-right: 5px;
+        }
+        .reaction-button.active {
+            background-color: #a78bfa;
+            border-color: #a78bfa;
+            color: #e0e0e0;
+        }
+        .comment-options {
+            position: relative;
+            display: inline-block;
+        }
+        .three-dots-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .three-dots-btn span {
+            width: 4px;
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+        }
+        .comment-options .menu {
+            display: none;
+            position: absolute;
+            background: #3a3a5a;
+            border: 1px solid #8b5cf6;
+            right: 0;
+            min-width: 100px;
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(138, 43, 226, 0.3);
+        }
+        .comment-options .menu a {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #e0e0e0;
+        }
+        .comment-options .menu a:hover {
+            background: #4a4a6a;
+        }
+        .comment-options.show .menu {
+            display: block;
+        }
+        .bg-light {
+            background-color: #4a4a6a !important;
+            border: 1px solid #8b5cf6;
+            color: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -69,9 +217,9 @@ $posts = $stmt->get_result();
         <div class="post-card">
             <div class="d-flex align-items-center">
                 <?php
-                $dp = !empty($row['DP']) && file_exists("../DP_uploads/" . $row['DP'])
-                    ? "../DP_uploads/" . $row['DP']
-                    : "../DP_uploads/default.png";
+                $dp = !empty($row['DP']) && file_exists("../DP_Uploads/" . $row['DP'])
+                    ? "../DP_Uploads/" . $row['DP']
+                    : "../DP_Uploads/default.png";
                 ?>
                 <img src="<?= htmlspecialchars($dp) ?>" class="dp" alt="DP">
                 <div class="username"><?= htmlspecialchars($row['F_name'] . ' ' . $row['L_name']) ?></div>
