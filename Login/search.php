@@ -70,13 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search'])) {
         .btn-primary:hover { 
             background: #5a4080; /* Lighter violet on hover */
         }
-        .btn-secondary { 
-            background: #3a2a5a; /* Dark violet button */
-            border: none; 
-        }
-        .btn-secondary:hover { 
-            background: #4a3066; /* Lighter violet on hover */
-        }
+       
         .table { 
             background: #2c1e3f; /* Dark violet table background */
             color: #fff; /* White text */
