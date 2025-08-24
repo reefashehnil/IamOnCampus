@@ -29,17 +29,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Add Academic Post</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Add Academic Post | IamOnCampus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c003e 0%, #4b0082 100%);
+            color: #e6e6fa;
+            padding: 2rem;
+        }
+        .container {
+            background: #3c0a5e;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        h2 {
+            color: #d8bfd8;
+        }
+        .form-control {
+            background-color: #3c0a5e !important;
+            color: #e6e6fa !important;
+            border: 1px solid #8a2be2 !important;
+        }
+        .form-control:focus {
+            background-color: #3c0a5e !important;
+            color: #e6e6fa !important;
+            border-color: #9932cc !important;
+            box-shadow: 0 0 5px rgba(153, 50, 204, 0.5) !important;
+        }
+        .form-control::placeholder {
+            color: #b19cd9 !important;
+        }
+        .form-label {
+            color: #d8bfd8;
+        }
+        .btn-success {
+            background-color: #8a2be2;
+            border-color: #8a2be2;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background-color: #9932cc;
+            border-color: #9932cc;
+            color: #fff;
+        }
+       
+        .alert-danger {
+            background-color: #703a4a;
+            color: #f8d7da;
+            border-color: #703a4a;
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
 </head>
-<body class="bg-light">
-
-<div class="container py-4">
-    <h2 class="text-primary mb-4">Add Academic Post</h2>
+<body>
+<div class="container">
+    <h2 class="mb-4">Add Academic Post</h2>
     <a href="moderate_content.php" class="btn btn-secondary mb-3">Back</a>
 
-    <?php if ($msg) echo "<div class='alert alert-danger'>$msg</div>"; ?>
+    <?php if ($msg): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
 
     <form method="post">
         <div class="mb-3">
@@ -54,9 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="form-label">Course</label>
             <input type="text" name="course" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Add Post</button>
+        <button type="submit" class="btn btn-success">Add Post</button>
     </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

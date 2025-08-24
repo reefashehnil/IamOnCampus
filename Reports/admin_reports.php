@@ -50,45 +50,102 @@ while ($row = $res->fetch_assoc()) $thread_data[] = $row;
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-    /* Force same size for all charts */
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #e0e0e0;
+    }
+    .container {
+        margin-top: 40px;
+        padding: 30px;
+        background: #2a2a4a;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    }
+    h1 {
+        color: #d8b4fe;
+        text-align: center;
+    }
+    .btn-secondary {
+        background-color: #4a4a6a;
+        border-color: #4a4a6a;
+    }
+    .btn-secondary:hover {
+        background-color: #5a5a7a;
+        border-color: #5a5a7a;
+    }
+    .card {
+        background-color: #3a3a5a;
+        border: 1px solid #8b5cf6;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    }
+    .card-header {
+        background-color: #2a2a4a !important;
+        color: #d8b4fe;
+        border-bottom: 1px solid #8b5cf6;
+    }
     canvas {
         width: 100% !important;
         height: 300px !important;
     }
+    .table {
+        background-color: #3a3a5a;
+        color: #e0e0e0;
+        border: 1px solid #8b5cf6;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #4a4a6a;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #5a5a7a;
+    }
+    th {
+        color: #d8b4fe;
+        background-color: #2a2a4a;
+        border-color: #8b5cf6;
+    }
+    td {
+        color: #e0e0e0;
+        border-color: #8b5cf6;
+    }
+    .table-light {
+        background-color: #2a2a4a !important;
+        color: #d8b4fe;
+    }
 </style>
 </head>
-<body class="bg-light">
+<body>
 
 <div class="container py-4">
-    <h1 class="mb-4 text-success">Platform Reports & Statistics</h1>
-    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mb-4"> Back to Dashboard</a>
+    <h1 class="mb-4">Platform Reports & Statistics</h1>
+    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mb-4">Back to Dashboard</a>
 
     <div class="row">
         <!-- Login Stats -->
         <div class="col-md-6 mb-4">
             <div class="card">
-                <div class="card-header bg-primary text-white">Login Statistics</div>
+                <div class="card-header">Login Statistics</div>
                 <div class="card-body"><canvas id="loginChart"></canvas></div>
             </div>
         </div>
         <!-- Event Popularity -->
         <div class="col-md-6 mb-4">
             <div class="card">
-                <div class="card-header bg-warning text-dark">Most Popular Events</div>
+                <div class="card-header">Most Popular Events</div>
                 <div class="card-body"><canvas id="eventChart"></canvas></div>
             </div>
         </div>
         <!-- Academic Replies -->
         <div class="col-md-6 mb-4">
             <div class="card">
-                <div class="card-header bg-danger text-white">Top Academic Posts (by Replies)</div>
+                <div class="card-header">Top Academic Posts (by Replies)</div>
                 <div class="card-body"><canvas id="academicChart"></canvas></div>
             </div>
         </div>
         <!-- Thread Replies -->
         <div class="col-md-6 mb-4">
             <div class="card">
-                <div class="card-header bg-success text-white">Top Discussion Threads (by Replies)</div>
+                <div class="card-header">Top Discussion Threads (by Replies)</div>
                 <div class="card-body"><canvas id="threadChart"></canvas></div>
             </div>
         </div>
@@ -98,7 +155,7 @@ while ($row = $res->fetch_assoc()) $thread_data[] = $row;
     <?php
     function showTable($title, $data, $headers, $color) {
         echo "<div class='card mb-4'>
-                <div class='card-header $color text-white'>$title</div>
+                <div class='card-header'>$title</div>
                 <div class='card-body p-0'>
                     <table class='table table-hover m-0'>
                         <thead class='table-light'><tr>";
@@ -112,10 +169,10 @@ while ($row = $res->fetch_assoc()) $thread_data[] = $row;
         echo "</tbody></table></div></div>";
     }
 
-    showTable("Login Statistics", $login_data, ["User", "Login Count"], "bg-primary");
-    showTable("Most Popular Events", $event_data, ["Event", "Participants"], "bg-warning");
-    showTable("Top Academic Posts (by Replies)", $academic_data, ["Post", "Replies"], "bg-danger");
-    showTable("Top Discussion Threads (by Replies)", $thread_data, ["Thread", "Replies"], "bg-success");
+    showTable("Login Statistics", $login_data, ["User", "Login Count"], "");
+    showTable("Most Popular Events", $event_data, ["Event", "Participants"], "");
+    showTable("Top Academic Posts (by Replies)", $academic_data, ["Post", "Replies"], "");
+    showTable("Top Discussion Threads (by Replies)", $thread_data, ["Thread", "Replies"], "");
     ?>
 </div>
 
@@ -131,26 +188,82 @@ const threadCounts = <?= json_encode(array_column($thread_data, 'replies')) ?>;
 
 new Chart(document.getElementById('loginChart'), {
     type: 'bar',
-    data: { labels: loginLabels, datasets: [{ label: 'Login Count', data: loginCounts, backgroundColor: 'rgba(54, 162, 235, 0.6)' }] },
-    options: { maintainAspectRatio: false }
+    data: { 
+        labels: loginLabels, 
+        datasets: [{ 
+            label: 'Login Count', 
+            data: loginCounts, 
+            backgroundColor: '#00b7eb' 
+        }] 
+    },
+    options: { 
+        maintainAspectRatio: false,
+        scales: {
+            x: { ticks: { color: '#e0e0e0' } },
+            y: { ticks: { color: '#e0e0e0' } }
+        },
+        plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+        }
+    }
 });
 
 new Chart(document.getElementById('eventChart'), {
     type: 'bar',
-    data: { labels: eventLabels, datasets: [{ label: 'Participants', data: eventCounts, backgroundColor: 'rgba(255, 206, 86, 0.6)' }] },
-    options: { maintainAspectRatio: false }
+    data: { 
+        labels: eventLabels, 
+        datasets: [{ 
+            label: 'Participants', 
+            data: eventCounts, 
+            backgroundColor: '#ffca28' 
+        }] 
+    },
+    options: { 
+        maintainAspectRatio: false,
+        scales: {
+            x: { ticks: { color: '#e0e0e0' } },
+            y: { ticks: { color: '#e0e0e0' } }
+        },
+        plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+        }
+    }
 });
 
 new Chart(document.getElementById('academicChart'), {
     type: 'pie',
-    data: { labels: academicLabels, datasets: [{ label: 'Replies', data: academicCounts, backgroundColor: ['rgba(255,99,132,0.6)','rgba(255,159,64,0.6)','rgba(255,205,86,0.6)','rgba(75,192,192,0.6)'] }] },
-    options: { maintainAspectRatio: false }
+    data: { 
+        labels: academicLabels, 
+        datasets: [{ 
+            label: 'Replies', 
+            data: academicCounts, 
+            backgroundColor: ['#ff1744', '#ff9100', '#ffeb3b', '#00e676', '#18ffff'] 
+        }] 
+    },
+    options: { 
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+        }
+    }
 });
 
 new Chart(document.getElementById('threadChart'), {
     type: 'pie',
-    data: { labels: threadLabels, datasets: [{ label: 'Replies', data: threadCounts, backgroundColor: ['rgba(54,162,235,0.6)','rgba(153,102,255,0.6)','rgba(201,203,207,0.6)','rgba(255,99,132,0.6)'] }] },
-    options: { maintainAspectRatio: false }
+    data: { 
+        labels: threadLabels, 
+        datasets: [{ 
+            label: 'Replies', 
+            data: threadCounts, 
+            backgroundColor: ['#0288d1', '#7b1fa2', '#ff4081', '#00c853', '#ffd600'] 
+        }] 
+    },
+    options: { 
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+        }
+    }
 });
 </script>
 

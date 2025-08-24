@@ -49,16 +49,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Add User | Admin - IamOnCampus</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c003e 0%, #4b0082 100%);
+            color: #e6e6fa;
+            padding: 2rem;
+        }
+        .container {
+            background: #3c0a5e;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        h2 {
+            color: #d8bfd8;
+        }
+        .alert-danger {
+            background-color: #4b0082;
+            border-color: #8a2be2;
+            color: #e6e6fa;
+        }
+        .form-control {
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+            border: 1px solid #8a2be2;
+        }
+        .form-control:focus {
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+            border-color: #9932cc;
+            box-shadow: 0 0 5px rgba(153, 50, 204, 0.5);
+        }
+        .form-control::placeholder {
+            color: #b19cd9;
+        }
+        .form-select {
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+            border: 1px solid #8a2be2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d8bfd8'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 2rem;
+        }
+        .form-select:focus {
+            border-color: #9932cc;
+            box-shadow: 0 0 5px rgba(153, 50, 204, 0.5);
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+        }
+        .form-select::placeholder {
+            color: #b19cd9;
+        }
+        label {
+            color: #d8bfd8;
+        }
+        .btn-success {
+            background-color: #8a2be2;
+            border-color: #8a2be2;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background-color: #9932cc;
+            border-color: #9932cc;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
-<div class="container mt-5" style="max-width: 600px;">
+<div class="container">
     <h2 class="mb-4">Add New User</h2>
 
     <?php if (isset($_SESSION['error'])): ?>
@@ -94,22 +166,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
         </div>
         <div class="mb-3">
-    <label>Department</label>
-    <select name="dept" class="form-control" required>
-        <option value="">-- Select Department --</option>
-        <option value="Accounting & Finance">Accounting & Finance</option>
-        <option value="Economics">Economics</option>
-        <option value="Management">Management</option>
-        <option value="Architecture">Architecture</option>
-        <option value="Civil & Environmental Engineering">Civil & Environmental Engineering</option>
-        <option value="Electrical & Computer Engineering">Electrical & Computer Engineering</option>
-        <option value="Mathematics & Physics">Mathematics & Physics</option>
-        <option value="English & Modern Languages">English & Modern Languages</option>
-    </select>
-</div>
+            <label>Department</label>
+            <select name="dept" class="form-control" required>
+                <option value="">-- Select Department --</option>
+                <option value="Accounting & Finance">Accounting & Finance</option>
+                <option value="Economics">Economics</option>
+                <option value="Management">Management</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Civil & Environmental Engineering">Civil & Environmental Engineering</option>
+                <option value="Electrical & Computer Engineering">Electrical & Computer Engineering</option>
+                <option value="Mathematics & Physics">Mathematics & Physics</option>
+                <option value="English & Modern Languages">English & Modern Languages</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Add User</button>
         <a href="manage_users.php" class="btn btn-secondary">Back</a>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
