@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search'])) {
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Search Users</h3>
-            <a href="dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="dashboard.php" class="btn btn-warning">Back to Dashboard</a>
         </div>
 
         <form method="post" class="mb-3">

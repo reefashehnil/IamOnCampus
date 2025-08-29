@@ -115,7 +115,7 @@ $result = $stmt->get_result();
 
 <div class="title-bar">Messages</div>
 
-<a href="<?= htmlspecialchars($dashboard_link) ?>" class="btn btn-secondary back-btn"> Back to Dashboard</a>
+<a href="<?= htmlspecialchars($dashboard_link) ?>" class="btn btn-warning back-btn"> Back to Dashboard</a>
 
 <div class="chat-list">
     <?php while($row = $result->fetch_assoc()): ?>

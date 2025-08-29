@@ -88,37 +88,90 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <title>Edit User | Admin - IamOnCampus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c003e 0%, #4b0082 100%);
+            color: #e6e6fa;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            background: #3c0a5e;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        h2 {
+            color: #d8bfd8;
+        }
+        .btn-primary {
+            background-color: #8a2be2;
+            border-color: #8a2be2;
+        }
+        .btn-primary:hover {
+            background-color: #9932cc;
+            border-color: #9932cc;
+        }
+
+        .form-control, .form-select {
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+            border: 1px solid #8a2be2;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #9932cc;
+            box-shadow: 0 0 5px rgba(153, 50, 204, 0.5);
+            background-color: #3c0a5e;
+            color: #e6e6fa;
+        }
+        .form-control::placeholder, .form-select::placeholder {
+            color: #b19cd9;
+        }
+        .form-label {
+            color: #d8bfd8;
+        }
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d8bfd8'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 2rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5" style="max-width: 600px;">
+<div class="container mt-5">
     <h2>Edit User</h2>
     <form method="POST">
         <div class="mb-3">
-            <label>First Name</label>
+            <label class="form-label">First Name</label>
             <input type="text" name="fname" class="form-control" value="<?= htmlspecialchars($user['F_name']) ?>" required>
         </div>
         <div class="mb-3">
-            <label>Middle Name</label>
+            <label class="form-label">Middle Name</label>
             <input type="text" name="mname" class="form-control" value="<?= htmlspecialchars($user['M_name']) ?>">
         </div>
         <div class="mb-3">
-            <label>Last Name</label>
+            <label class="form-label">Last Name</label>
             <input type="text" name="lname" class="form-control" value="<?= htmlspecialchars($user['L_name']) ?>" required>
         </div>
         <div class="mb-3">
-            <label>Email</label>
+            <label class="form-label">Email</label>
             <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>" required>
         </div>
         <div class="mb-3">
-            <label>Role</label>
-            <select name="role" class="form-control" required>
+            <label class="form-label">Role</label>
+            <select name="role" class="form-select" required>
                 <option value="Student" <?= $user['Role'] === 'Student' ? 'selected' : '' ?>>Student</option>
                 <option value="Admin" <?= $user['Role'] === 'Admin' ? 'selected' : '' ?>>Admin</option>
             </select>
         </div>
         <div class="mb-3">
-            <label>Department</label>
-            <select name="dept" class="form-control" required>
+            <label class="form-label">Department</label>
+            <select name="dept" class="form-select" required>
                 <option value="">Select Department</option>
                 <option value="Accounting & Finance" <?= $user['DeptName'] === 'Accounting & Finance' ? 'selected' : '' ?>>Accounting & Finance</option>
                 <option value="Economics" <?= $user['DeptName'] === 'Economics' ? 'selected' : '' ?>>Economics</option>
@@ -131,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Update User</button>
-        <a href="manage_users.php" class="btn btn-secondary">Cancel</a>
+        <a href="manage_users.php" class="btn btn-warning">Cancel</a>
     </form>
 </div>
 </body>

@@ -51,7 +51,7 @@ $results = $stmt->get_result();
             color: #fff; /* White text for card content */
         }
         .card:hover {
-            background: #4a3066; /* Lighter violet on hover, replacing #f8f9fa */
+            background: #4a3066; /* Lighter violet on hover */
             transition: 0.2s;
         }
         .card-body {
@@ -73,13 +73,14 @@ $results = $stmt->get_result();
             color: #fff;
         }
         .btn-outline-primary {
-            border-color: #4a3066; /* Violet border */
-            color: #fff; /* White text */
+            border-color: #7a60a0; /* Lighter violet border for better contrast */
+            color: #e6e6fa; /* Lavender text for visibility */
+            background: #5a4080; /* Light violet background for default state */
         }
         .btn-outline-primary:hover {
-            background: #4a3066; /* Violet background on hover */
-            border-color: #5a4080; /* Lighter violet border */
-            color: #fff;
+            background: #7a60a0; /* Lighter violet on hover */
+            border-color: #8a70b0; /* Even lighter violet border */
+            color: #fff; /* White text on hover */
         }
         .form-control {
             background: #3a2a5a; /* Dark violet for input */
@@ -98,7 +99,7 @@ $results = $stmt->get_result();
 </head>
 <body class="container mt-4">
 
-<a href="../Login/dashboard.php" class="btn btn-secondary mb-3">
+<a href="../Login/dashboard.php" class="btn btn-warning mb-3">
     Back to Dashboard
 </a>
 

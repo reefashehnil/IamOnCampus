@@ -73,7 +73,7 @@ $events = $conn->query("SELECT * FROM events ORDER BY Event_date ASC");
 </head>
 <body>
 <div class="container mt-4">
-    <a href="<?= $dashboardLink ?>" class="btn btn-secondary mb-3">
+    <a href="<?= $dashboardLink ?>" class="btn btn-warning mb-3">
              Back to Dashboard
     </a>
     <div class="card shadow p-4">

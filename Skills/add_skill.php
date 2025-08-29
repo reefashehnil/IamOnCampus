@@ -124,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label for="skill_name" class="form-label">Skill Name *</label>
             <div class="select-wrapper">
                 <select id="skill_name" name="skill_name" class="form-select" required>
+                    <option value="" disabled <?= empty($_POST['skill_name']) ? 'selected' : '' ?>>-- Select Skill --</option>
                     <?php
                     $skills = [
                         "Public Speaking",
@@ -161,14 +162,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <textarea name="description" id="description" class="form-control"></textarea>
         </div>
         <div class="mb-3">
-            <label for="availability" class="form-label">Availability Time</label>
-            <input type="text" name="availability" id="availability" class="form-control">
-        </div>
+    <label for="availability" class="form-label">Availability Time</label>
+    <div class="select-wrapper">
+        <select name="availability" id="availability" class="form-select" required>
+            <option value="" disabled <?= empty($_POST['availability']) ? 'selected' : '' ?>>-- Select Time Slot --</option>
+            <?php
+            $times = [];
+            for ($i = 0; $i < 24; $i++) {
+                $start = date("g:00 A", strtotime("$i:00"));
+                $end = date("g:00 A", strtotime(($i+1).":00"));
+                $slot = "$start - $end";
+                echo "<option value='$slot'>$slot</option>";
+            }
+            ?>
+        </select>
+    </div>
+</div>
+
         <div class="mb-3">
             <label for="mode" class="form-label">Mode *</label>
             <div class="select-wrapper">
                 <select name="mode" id="mode" class="form-select" required>
-                    <option value="">Select Mode</option>
+                    <option value="" disabled <?= empty($_POST['mode']) ? 'selected' : '' ?>>-- Select Mode --</option>
                     <option value="online">Online</option>
                     <option value="offline">Offline</option>
                     <option value="both">Both</option>
@@ -178,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="submit" class="btn btn-primary w-100">Add Skill</button>
     </form>
 
-    <a href="../Login/dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    <a href="../Login/dashboard.php" class="btn btn-warning mt-3">Back to Dashboard</a>
 </div>
 </body>
 </html>

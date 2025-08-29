@@ -121,7 +121,7 @@ $other_user = $user_stmt->get_result()->fetch_assoc();
 </head>
 <body>
 
-<a href="chat_list.php" class="btn btn-secondary m-3"> Back to Messages</a>
+<a href="chat_list.php" class="btn btn-warning m-3"> Back to Messages</a>
 
 <div class="chat-container">
     <div class="chat-header">

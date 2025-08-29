@@ -132,7 +132,7 @@ if ($skill['User_id'] == $_SESSION['user_id']) {
             <a href="available_skills.php" class="btn btn-secondary">Cancel</a>
         </form>
     <?php else: ?>
-        <a href="available_skills.php" class="btn btn-secondary mt-3">Back to Available Skills</a>
+        <a href="available_skills.php" class="btn btn-warning mt-3">Back to Available Skills</a>
     <?php endif; ?>
 </div>
 </body>

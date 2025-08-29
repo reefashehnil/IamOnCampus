@@ -118,7 +118,7 @@ $slides = array_chunk_safe($users, 3);
             color: #d7d7e2; margin-top: 10px; font-size: 0.98rem; line-height: 1.35rem;
             display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
         }
-        .carousel .carousel-item { transition: transform .6s ease-in-out; }
+        .carousel .carousel-item { transition: transform .5s ease-in-out; }
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-250px); }
             .sidebar.active { transform: translateX(0); }
@@ -224,7 +224,7 @@ $slides = array_chunk_safe($users, 3);
             <?php if (count($slides) === 0): ?>
                 <p class="text-center text-muted mb-0">No stories yet. Update your profile with “Tell something about yourself” to be featured here!</p>
             <?php else: ?>
-            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
+            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner">
                     <?php
                     $first = true;
@@ -297,7 +297,7 @@ $slides = array_chunk_safe($users, 3);
         const aboutCarousel = document.querySelector('#aboutCarousel');
         if (aboutCarousel) {
             const carousel = new bootstrap.Carousel(aboutCarousel, {
-                interval: 8000,
+                interval: 5000,
                 ride: 'carousel',
                 pause: false,
                 wrap: true

@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="container">
     <h2 class="mb-4">Add Academic Post</h2>
-    <a href="moderate_content.php" class="btn btn-secondary mb-3">Back</a>
+    <a href="moderate_content.php" class="btn btn-warning mb-3">Back</a>
 
     <?php if ($msg): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>

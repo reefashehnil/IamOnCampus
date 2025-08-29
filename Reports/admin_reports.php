@@ -118,7 +118,7 @@ while ($row = $res->fetch_assoc()) $thread_data[] = $row;
 
 <div class="container py-4">
     <h1 class="mb-4">Platform Reports & Statistics</h1>
-    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mb-4">Back to Dashboard</a>
+    <a href="../Login/admin_dashboard.php" class="btn btn-warning mb-4">Back to Dashboard</a>
 
     <div class="row">
         <!-- Login Stats -->
@@ -215,7 +215,7 @@ new Chart(document.getElementById('eventChart'), {
         datasets: [{ 
             label: 'Participants', 
             data: eventCounts, 
-            backgroundColor: '#ffca28' 
+            backgroundColor: '#eaf20fff' 
         }] 
     },
     options: { 

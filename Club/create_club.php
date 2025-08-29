@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="container mt-4">
-    <a href="<?= $dashboardLink ?>" class="btn btn-secondary mb-3">
+    <a href="<?= $dashboardLink ?>" class="btn btn-warning mb-3">
          Back to Dashboard
     </a>
 

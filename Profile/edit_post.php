@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dashboardPath = '../Login/login.php';
         }
         ?>
-        <a href="<?= $dashboardPath ?>" class="btn btn-secondary" style="margin-left: 8px;">Back to Dashboard</a>
+        <a href="<?= $dashboardPath ?>" class="btn btn-warning" style="margin-left: 8px;">Back to Dashboard</a>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

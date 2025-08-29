@@ -92,7 +92,7 @@ $dashboard_link = ($logged_in_role === 'Admin') ? "../Login/admin_dashboard.php"
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Profile of <?= htmlspecialchars($user['F_name'] . ' ' . $user['L_name']) ?></h3>
-        <a href="<?= $dashboard_link ?>" class="btn btn-secondary">Back to Dashboard</a>
+        <a href="<?= $dashboard_link ?>" class="btn btn-warning">Back to Dashboard</a>
     </div>
     <div class="card mb-4 shadow-sm">
         <div class="card-body text-center">

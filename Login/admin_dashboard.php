@@ -253,7 +253,7 @@ $slides = array_chunk_safe($users, 3);
             overflow: hidden;
         }
         .carousel .carousel-item {
-            transition: transform .6s ease-in-out;
+            transition: transform .5s ease-in-out;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -359,7 +359,7 @@ $slides = array_chunk_safe($users, 3);
             <?php if (count($slides) === 0): ?>
                 <p class="text-center text-muted mb-0">No profiles yet. Encourage users to update their profiles to be featured here!</p>
             <?php else: ?>
-            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
+            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner">
                     <?php
                     $first = true;
@@ -432,7 +432,7 @@ $slides = array_chunk_safe($users, 3);
         const aboutCarousel = document.querySelector('#aboutCarousel');
         if (aboutCarousel) {
             const carousel = new bootstrap.Carousel(aboutCarousel, {
-                interval: 8000,
+                interval: 5000,
                 ride: 'carousel',
                 pause: false,
                 wrap: true

@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-primary w-100">Update Skill</button>
     </form>
 
-    <a href="admin_skill.php" class="btn btn-secondary mt-3 w-100">Back to Skill Management</a>
+    <a href="admin_skill.php" class="btn btn-warning mt-3 w-100">Back to Skill Management</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

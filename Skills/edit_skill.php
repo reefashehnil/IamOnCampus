@@ -206,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="submit" class="btn btn-primary w-100">Update Skill</button>
     </form>
 
-    <a href="my_skills.php" class="btn btn-secondary mt-3">Back to Skills</a>
+    <a href="my_skills.php" class="btn btn-warning mt-3">Back to Skills</a>
 </div>
 </body>
 </html>

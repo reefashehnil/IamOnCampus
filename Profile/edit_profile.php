@@ -356,7 +356,7 @@ if (!empty($user['DP']) && file_exists("../DP_Uploads/" . $user['DP'])) {
                 $dashboardPath = '../Login/login.php';
             }
             ?>
-            <a href="<?= $dashboardPath ?>" class="btn btn-secondary w-25 mx-auto d-block mt-4">Back to Dashboard</a>
+            <a href="<?= $dashboardPath ?>" class="btn btn-warning w-25 mx-auto d-block mt-4">Back to Dashboard</a>
         </div>
     </div>
 

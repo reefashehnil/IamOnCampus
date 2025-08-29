@@ -60,12 +60,22 @@ $posts = $stmt->get_result();
             border-color: #a78bfa;
         }
         .btn-warning {
-            background-color: #d97706;
-            border-color: #d97706;
+            background-color: #e6e614ff;
+            border-color: #e6e614ff;
         }
         .btn-warning:hover {
-            background-color: #f59e0b;
+            background-color: #ffb300;
+            border-color: #ffb300;
+        }
+        .btn-no-hover {
+            background-color: #f59e0b; /* Lighter orange for visibility */
+            border-color: ##f59e0b;
+            color: #1a1a2e; /* Dark text for contrast */
+        }
+        .btn-no-hover:hover {
+            background-color: #f59e0b; /* Same as default to remove hover effect */
             border-color: #f59e0b;
+            color: #1a1a2e;
         }
         .btn-danger {
             background-color: #9b2c2c;
@@ -134,7 +144,8 @@ $posts = $stmt->get_result();
         $dashboardPath = '../Login/login.php';
     }
     ?>
-    <a href="<?= $dashboardPath ?>" class="btn btn-secondary mt-4 mb-4">Back to Dashboard</a>
+    <a href="<?= $dashboardPath ?>" class="btn btn-no-hover mt-4 mb-4">Back to Dashboard</a>
+    
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

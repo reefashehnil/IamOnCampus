@@ -1,3 +1,4 @@
+```php
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
@@ -111,13 +112,23 @@ while ($row = $users_result->fetch_assoc()) {
         border-color: #5a5a7a;
     }
     .btn-warning {
-        background-color: #ffca28;
-        border-color: #ffca28;
+        background-color: #e6e614ff;
+        border-color: #e6e614ff;
         color: #1a1a2e;
     }
     .btn-warning:hover {
         background-color: #ffb300;
         border-color: #ffb300;
+    }
+    .btn-no-hover {
+        background-color: #ffca28; /* Lighter orange for visibility */
+        border-color: #ffca28;
+        color: #1a1a2e; /* Dark text for contrast */
+    }
+    .btn-no-hover:hover {
+        background-color: #ffca28; /* Same as default to remove hover effect */
+        border-color: #ffca28;
+        color: #1a1a2e;
     }
     .btn-danger {
         background-color: #d32f2f;
@@ -264,12 +275,12 @@ while ($row = $users_result->fetch_assoc()) {
     </div>
 
     <!-- Skill Table -->
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table Hover">
         <thead class="table-light">
             <tr>
                 <th>#</th>
                 <th>Skill Name</th>
-                <th>Description</th>
+                <th>Description</ xrth>
                 <th>Availability</th>
                 <th>Mode</th>
                 <th>Owner</th>
@@ -300,9 +311,10 @@ while ($row = $users_result->fetch_assoc()) {
         </tbody>
     </table>
 
-    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    <a href="../Login/admin_dashboard.php" class="btn btn-no-hover mt-3">Back to Dashboard</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+```

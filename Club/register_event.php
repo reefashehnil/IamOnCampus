@@ -120,7 +120,7 @@ if (isset($_GET['event_id'])) {
 </head>
 <body>
 <div class="container mt-4">
-    <a href="<?= $dashboardLink ?>" class="btn btn-secondary mb-3">
+    <a href="<?= $dashboardLink ?>" class="btn btn-warning mb-3">
         Back to Dashboard
     </a>
     <div class="card shadow p-4">

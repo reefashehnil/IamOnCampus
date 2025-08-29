@@ -110,7 +110,7 @@ $result = $stmt->get_result();
         <div class="alert alert-info">You haven’t added any skills yet.</div>
     <?php endif; ?>
 
-    <a href="../Login/dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    <a href="../Login/dashboard.php" class="btn btn-warning mt-3">Back to Dashboard</a>
 </div>
 </body>
 </html>

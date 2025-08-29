@@ -60,8 +60,33 @@ $users = $conn->query("
             background-color: #9932cc;
             border-color: #9932cc;
         }
-        
-        
+    .btn-warning {
+        background-color: #e6e614ff;
+        border-color: #e6e614ff;
+        color: #1a1a2e;
+    }
+    .btn-warning:hover {
+        background-color: #ffb300;
+        border-color: #ffb300;
+    }
+    .btn-no-hover {
+        background-color: #ffca28; /* Lighter orange for visibility */
+        border-color: #ffca28;
+        color: #1a1a2e; /* Dark text for contrast */
+    }
+    .btn-no-hover:hover {
+        background-color: #ffca28; /* Same as default to remove hover effect */
+        border-color: #ffca28;
+        color: #1a1a2e;
+    }
+        .btn-danger {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+        .btn-danger:hover {
+            background-color: #b71c1c;
+            border-color: #b71c1c;
+        }
         .form-select {
             background-color: #3c0a5e;
             color: #e6e6fa;
@@ -92,7 +117,7 @@ $users = $conn->query("
             --bs-table-bg: #4b0082;
         }
         .table {
-            background-color: #3c0a5e; /* Uniform background for all rows */
+            background-color: #3c0a5e;
             color: #e6e6fa;
         }
         .table-bordered {
@@ -108,7 +133,7 @@ $users = $conn->query("
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Manage Users</h3>
-        <a href="../Login/admin_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+        <a href="../Login/admin_dashboard.php" class="btn btn-no-hover">Back to Dashboard</a>
     </div>
 
     <div class="d-flex justify-content-between mb-3">
@@ -133,6 +158,7 @@ $users = $conn->query("
                 <th>Department</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -143,6 +169,15 @@ $users = $conn->query("
                     <td><?= htmlspecialchars($u['DeptName']) ?></td>
                     <td><?= htmlspecialchars($u['Email'] ?? '-') ?></td>
                     <td><?= htmlspecialchars($u['Role'] ?? '-') ?></td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="edit_user.php?id=<?= $u['User_id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                            <form method="post" action="delete_user.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <input type="hidden" name="user_id" value="<?= $u['User_id'] ?>">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             <?php } ?>
         </tbody>

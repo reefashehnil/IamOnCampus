@@ -47,14 +47,24 @@ $result = $conn->query($sql);
         background-color: #4b3c7a; /* Violet header background */
         color: #ffffff;
     }
-    .btn-warning {
-        background-color: #9370db; /* Medium purple button */
-        border-color: #9370db;
-        color: #ffffff;
+   .btn-warning {
+        background-color: #e6e614ff;
+        border-color: #e6e614ff;
+        color: #1a1a2e;
     }
     .btn-warning:hover {
-        background-color: #7b68ee; /* Lighter purple on hover */
-        border-color: #7b68ee;
+        background-color: #ffb300;
+        border-color: #ffb300;
+    }
+    .btn-no-hover {
+        background-color: #ffca28; /* Lighter orange for visibility */
+        border-color: #ffca28;
+        color: #1a1a2e; /* Dark text for contrast */
+    }
+    .btn-no-hover:hover {
+        background-color: #ffca28; /* Same as default to remove hover effect */
+        border-color: #ffca28;
+        color: #1a1a2e;
     }
     h2 {
         color: #d8bfd8; /* Thistle color for heading */
@@ -64,7 +74,7 @@ $result = $conn->query($sql);
 <body>
 <div class="container mt-5">
     <h2>Available Skills</h2>
-    <a href="../Login/dashboard.php" class="btn btn-secondary mb-3">Back to Dashboard</a>
+    <a href="../Login/dashboard.php" class="btn btn-no-hover mb-3">Back to Dashboard</a>
 
     <table class="table table-bordered">
         <thead>

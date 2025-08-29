@@ -209,7 +209,7 @@ $posts = $stmt->get_result();
         $dashboardPath = '../Login/login.php';
     }
     ?>
-    <a href="<?= htmlspecialchars($dashboardPath) ?>" class="btn btn-secondary">Back to Dashboard</a>
+    <a href="<?= htmlspecialchars($dashboardPath) ?>" class="btn btn-warning">Back to Dashboard</a>
 </div>
 
 <?php if ($posts->num_rows > 0): ?>

@@ -132,7 +132,7 @@ $replies = $stmt->get_result();
 </head>
 <body class="container mt-4">
 
-<a href="../Login/dashboard.php" class="btn btn-secondary mb-3">Back to Dashboard</a>
+<a href="../Login/dashboard.php" class="btn btn-warning mb-3">Back to Dashboard</a>
 
 <div class="card shadow-sm mb-4">
     <div class="card-body">

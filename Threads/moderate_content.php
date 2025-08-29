@@ -65,16 +65,25 @@ include '../Connection/db_connect.php';
             color: #fff;
         }
       
-        .btn-warning {
-            background-color: #ffca28;
-            border-color: #ffca28;
-            color: #1a1a2e;
-        }
-        .btn-warning:hover {
-            background-color: #ffb300;
-            border-color: #ffb300;
-            color: #fff;
-        }
+   .btn-warning {
+        background-color: #e6e614ff;
+        border-color: #e6e614ff;
+        color: #1a1a2e;
+    }
+    .btn-warning:hover {
+        background-color: #ffb300;
+        border-color: #ffb300;
+    }
+    .btn-no-hover {
+        background-color: #ffca28; /* Lighter orange for visibility */
+        border-color: #ffca28;
+        color: #1a1a2e; /* Dark text for contrast */
+    }
+    .btn-no-hover:hover {
+        background-color: #ffca28; /* Same as default to remove hover effect */
+        border-color: #ffca28;
+        color: #1a1a2e;
+    }
         .btn-danger {
             background-color: #a71d2a;
             border-color: #a71d2a;
@@ -93,7 +102,7 @@ include '../Connection/db_connect.php';
 <body>
 <div class="container py-4">
     <h1 class="mb-4">Moderate Content</h1>
-    <a href="../Login/admin_dashboard.php" class="btn btn-secondary mb-4">Back to Dashboard</a>
+    <a href="../Login/admin_dashboard.php" class="btn btn-no-hover mb-4">Back to Dashboard</a>
 
     <!-- Academic Forum -->
     <div class="card mb-4">

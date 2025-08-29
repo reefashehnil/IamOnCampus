@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" name="course" value="<?= htmlspecialchars($post['Course']) ?>" class="form-control">
             </div>
             <div class="d-flex justify-content-between">
-                <a href="moderate_content.php" class="btn btn-secondary">Back to Moderate Content</a>
+                <a href="moderate_content.php" class="btn btn-warning">Back to Moderate Content</a>
                 <button type="submit" class="btn btn-success">Update Post</button>
             </div>
         </form>

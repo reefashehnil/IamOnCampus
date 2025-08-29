@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label>Department</label>
             <select name="dept" class="form-control" required>
-                <option value="">-- Select Department --</option>
+                <option value="" disabled <?= empty($_POST['Department']) ? 'selected' : '' ?>>-- Select Department --</option>
                 <option value="Accounting & Finance">Accounting & Finance</option>
                 <option value="Economics">Economics</option>
                 <option value="Management">Management</option>
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
         </div>
         <button type="submit" class="btn btn-success">Add User</button>
-        <a href="manage_users.php" class="btn btn-secondary">Back</a>
+        <a href="manage_users.php" class="btn btn-warning">Back</a>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
