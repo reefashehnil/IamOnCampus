@@ -275,14 +275,14 @@ footer {
     100% { transform: rotate(360deg); }
 }
 
-/* Placeholder text color to white */
+
 #email::placeholder,
 #password::placeholder {
     color: #ffffff;
-    opacity: 1; /* ensure full visibility */
+    opacity: 1; 
 }
 
-/* Input icons */
+
 .input-group {
     position: relative;
 }
@@ -416,7 +416,7 @@ document.querySelectorAll('.form-control').forEach(input => {
     });
 });
 
-// Initialize particles when page loads
+
 window.addEventListener('load', function() {
     createParticles();
 });

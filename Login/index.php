@@ -51,7 +51,7 @@ text-shadow: 0 2px 10px rgba(0,0,0,.35);
 </style>
 </head>
 <body>
-<!-- NAVBAR -->
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(135deg, #000000 0%, #4b0082 100%);">
   <div class="container">
     <a class="navbar-brand fw-bold" href="./">IamOnCampus</a>
@@ -84,7 +84,7 @@ text-shadow: 0 2px 10px rgba(0,0,0,.35);
 </nav>
 
 
-<!-- HERO -->
+
 <header class="hero">
 <div class="hero-inner container">
 <div class="row justify-content-center">
@@ -100,7 +100,7 @@ text-shadow: 0 2px 10px rgba(0,0,0,.35);
 </header>
 
 
-<!-- ABOUT -->
+
 <section id="about" class="py-5" style="background: linear-gradient(135deg, #000000 0%, #4b0082 100%); color: #fff;">
   <div class="container text-center">
     <h2 class="mb-4 fw-bold text-warning">Why Choose IamOnCampus?</h2>

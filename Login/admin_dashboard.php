@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Redirect if not logged in or not an admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
     header("Location: login.php");
     exit;
@@ -28,7 +28,7 @@ $msg_res = $msg_stmt->get_result()->fetch_assoc();
 $unread_msgs = $msg_res['unread_msgs'];
 $msg_stmt->close();
 
-// Fetch users with about_me for the carousel (limit to keep it light) - can be adjusted for admin data
+
 $users = [];
 $u_stmt = $conn->prepare("
     SELECT User_id, F_name, L_name, DP, about_me
@@ -44,7 +44,7 @@ while ($u = $u_res->fetch_assoc()) {
 }
 $u_stmt->close();
 
-// Helper to chunk array (3 cards per slide for desktop)
+
 function array_chunk_safe($array, $size) {
     $chunks = [];
     $chunk = [];
@@ -198,7 +198,7 @@ $slides = array_chunk_safe($users, 3);
             z-index: 1100;
             display: none;
         }
-        /* Carousel styles */
+    
         .carousel-wrap {
             background: #1f1f35;
             border: 1px solid #3a3a58;
@@ -221,9 +221,9 @@ $slides = array_chunk_safe($users, 3);
             width: 350px;
             box-shadow: 0 8px 18px rgba(0,0,0,.35);
         }
-        .story-card:nth-child(1) { background-color: #6B46C1; } /* Deep purple */
-        .story-card:nth-child(2) { background-color: #805AD5; } /* Medium purple */
-        .story-card:nth-child(3) { background-color: #4C51BF; } /* Deep blue */
+        .story-card:nth-child(1) { background-color: #6B46C1; } 
+        .story-card:nth-child(2) { background-color: #805AD5; } 
+        .story-card:nth-child(3) { background-color: #4C51BF; } 
         .story-card .avatar {
             width: 80px;
             height: 80px;
@@ -353,7 +353,7 @@ $slides = array_chunk_safe($users, 3);
             <a href="../User/manage_users.php" class="btn-explore">Explore Now</a>
         </div>
 
-        <!-- carousel -->
+      
         <div class="carousel-wrap mt-4">
             <h3 class="carousel-title">Campus Highlights</h3>
             <?php if (count($slides) === 0): ?>
@@ -392,7 +392,7 @@ $slides = array_chunk_safe($users, 3);
                     endforeach; ?>
                 </div>
 
-                <!-- Controls -->
+               
                 <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev" aria-label="Previous">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 </button>
@@ -402,19 +402,19 @@ $slides = array_chunk_safe($users, 3);
             </div>
             <?php endif; ?>
         </div>
-        <!-- /carousel -->
+       
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Toggle sidebar on mobile
+       
         document.querySelector('.toggle-sidebar').addEventListener('click', function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('main-content').classList.toggle('full');
         });
 
-        // Real-time message notifications
+     
         setInterval(function(){
             $.get("../Chat/check_new_messages.php", function(data){
                 try {
@@ -428,7 +428,7 @@ $slides = array_chunk_safe($users, 3);
             });
         }, 2000);
 
-        // Ensure auto-cycling keeps running after manual interaction
+        
         const aboutCarousel = document.querySelector('#aboutCarousel');
         if (aboutCarousel) {
             const carousel = new bootstrap.Carousel(aboutCarousel, {

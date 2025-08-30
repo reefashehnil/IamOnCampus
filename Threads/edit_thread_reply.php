@@ -32,41 +32,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css?v=1.0" rel="stylesheet">
     <style>
         body {
-            background-color: #1a0d2b !important; /* Dark violet-black background */
-            color: #e6e6fa !important; /* Light lavender text for readability */
+            background-color: #1a0d2b !important; 
+            color: #e6e6fa !important; 
         }
         .edit-reply-card {
             max-width: 600px;
             margin: 40px auto;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; /* Darker shadow for contrast */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) 
             border-radius: 12px;
-            background: #2a1b3d !important; /* Slightly lighter dark shade */
+            background: #2a1b3d !important; 
         }
         .edit-reply-card .form-label {
-            color: #e6e6fa !important; /* Light lavender for labels */
+            color: #e6e6fa !important;
         }
         .edit-reply-card textarea.form-control {
-            background-color: #3c2f5c !important; /* Dark purple textarea background */
-            color: #e6e6fa !important; /* Light lavender text */
-            border-color: #5a4b7c !important; /* Medium purple border */
+            background-color: #3c2f5c !important; 
+            color: #e6e6fa !important; 
+            border-color: #5a4b7c !important; 
         }
         .edit-reply-card textarea.form-control:focus {
-            border-color: #9370db !important; /* Medium purple border on focus */
-            box-shadow: 0 0 8px rgba(123, 104, 238, 0.3) !important; /* Lighter purple shadow */
+            border-color: #9370db !important; 
+            box-shadow: 0 0 8px rgba(123, 104, 238, 0.3) !important; 
         }
         .edit-reply-card h4 {
-            color: #d8bfd8 !important; /* Thistle color for heading */
+            color: #d8bfd8 !important; 
         }
         .btn-success {
-            background-color: #6a5acd !important; /* Slate blue button */
+            background-color: #6a5acd !important; 
             border-color: #6a5acd !important;
         }
         .btn-success:hover {
-            background-color: #483d8b !important; /* Darker slate blue on hover */
+            background-color: #483d8b !important; 
             border-color: #483d8b !important;
         }
-        /* No custom styles for btn-outline-secondary to keep default Bootstrap styling */
+       
     </style>
 </head>
 <body>

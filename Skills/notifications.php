@@ -9,13 +9,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch notifications for logged-in user, newest first
+
 $stmt = $conn->prepare("SELECT Notify_id, Message, Seen_status FROM Notifications WHERE User_id = ? ORDER BY Notify_id DESC");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $notifications = $stmt->get_result();
 
-// Mark all unseen notifications as seen
+
 $update_stmt = $conn->prepare("UPDATE Notifications SET Seen_status = 1 WHERE User_id = ? AND Seen_status = 0");
 $update_stmt->bind_param("i", $user_id);
 $update_stmt->execute();
@@ -29,37 +29,37 @@ $update_stmt->execute();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); 
             font-family: Arial;
-            color: #fff; /* White text for contrast */
+            color: #fff; 
         }
         .container {
-            margin: 0 auto; /* Original margin */
-            padding: 15px; /* Original padding */
-            background: #2c1e3f; /* Dark violet shade */
+            margin: 0 auto; 
+            padding: 15px; 
+            background: #2c1e3f; 
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         h3 {
-            color: #fff; /* White text for "Your Notifications" */
+            color: #fff; 
         }
         .alert-secondary {
-            background: #3a2a5a; /* Slightly lighter violet for seen notifications */
-            color: #fff; /* White text for notifications */
-            border: 1px solid #4a3066; /* Violet border */
+            background: #3a2a5a; 
+            color: #fff; 
+            border: 1px solid #4a3066; 
         }
         .alert-info {
-            background: #4a3066; /* Violet for unseen notifications */
-            color: #fff; /* White text for notifications */
-            border: 1px solid #5a4080; /* Lighter violet border */
+            background: #4a3066;
+            color: #fff; 
+            border: 1px solid #5a4080;
         }
         .alert-warning {
-            background: #ff6666; /* Light red for no notifications */
-            color: #fff; /* White text for notifications */
-            border: 1px solid #4a3066; /* Violet border */
+            background: #ff6666;
+            color: #fff; 
+            border: 1px solid #4a3066; 
         }
         .text-muted {
-            color: #fff !important; /* White for "Seen"/"New" text */
+            color: #fff !important; 
         }
     </style>
 </head>

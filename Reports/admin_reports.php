@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
 }
 include '../Connection/db_connect.php';
 
-// ===== 1) Login Stats =====
+
 $login_data = [];
 $res = $conn->query("SELECT u.F_name, COUNT(l.Login_id) AS logins
                      FROM login_history l
@@ -15,7 +15,7 @@ $res = $conn->query("SELECT u.F_name, COUNT(l.Login_id) AS logins
                      ORDER BY logins DESC");
 while ($row = $res->fetch_assoc()) $login_data[] = $row;
 
-// ===== 2) Event Popularity =====
+
 $event_data = [];
 $res = $conn->query("SELECT e.Event_title, COUNT(er.Participant_id) AS participants
                      FROM events e
@@ -24,7 +24,7 @@ $res = $conn->query("SELECT e.Event_title, COUNT(er.Participant_id) AS participa
                      ORDER BY participants DESC");
 while ($row = $res->fetch_assoc()) $event_data[] = $row;
 
-// ===== 3) Academic Posts by Replies =====
+
 $academic_data = [];
 $res = $conn->query("SELECT a.Acd_title, COUNT(r.Acd_reply_id) AS replies
                      FROM academic_posts a
@@ -33,7 +33,7 @@ $res = $conn->query("SELECT a.Acd_title, COUNT(r.Acd_reply_id) AS replies
                      ORDER BY replies DESC");
 while ($row = $res->fetch_assoc()) $academic_data[] = $row;
 
-// ===== 4) Discussion Threads by Replies =====
+
 $thread_data = [];
 $res = $conn->query("SELECT d.Dt_title, COUNT(r.Reply_id) AS replies
                      FROM discussion_threads d

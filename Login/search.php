@@ -2,7 +2,7 @@
 session_start();
 include '../Connection/db_connect.php';
 
-// Redirect if not logged in
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../Login/login.php");
     exit;
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search'])) {
     $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 } else {
-    // Show all users if no search input
+    
     $results = $conn->query("SELECT User_id, F_name, M_name, L_name, DeptName FROM users ORDER BY User_id ASC")->fetch_all(MYSQLI_ASSOC);
 }
 ?>
@@ -41,64 +41,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['search'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); 
             font-family: Arial; 
-            color: #fff; /* White text for contrast */
+            color: #fff; 
         }
         .container { 
-            margin: 0 auto; /* Original margin */
-            background: #2c1e3f; /* Dark violet shade */
+            margin: 0 auto; 
+            background: #2c1e3f; 
             border-radius: 8px; 
-            padding: 15px; /* Original padding */
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            padding: 15px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         h3 { 
-            color: #fff; /* White text for contrast */
+            color: #fff; 
         }
         .form-control { 
-            background: #3a2a5a; /* Dark violet input background */
-            border: 1px solid #4a3066; /* Violet border */
-            color: #fff; /* White text */
+            background: #3a2a5a;
+            border: 1px solid #4a3066;
+            color: #fff; 
         }
         .form-control::placeholder { 
-            color: #ccc; /* Light gray placeholder text */
+            color: #ccc; 
         }
         .btn-primary { 
-            background: #4a3066; /* Violet button */
+            background: #4a3066; 
             border: none; 
         }
         .btn-primary:hover { 
-            background: #5a4080; /* Lighter violet on hover */
+            background: #5a4080; 
         }
        
         .table { 
-            background: #2c1e3f; /* Dark violet table background */
-            color: #fff; /* White text */
+            background: #2c1e3f;
+            color: #fff;
         }
         .table-dark { 
-            background: #3a2a5a; /* Slightly lighter violet for table header */
+            background: #3a2a5a; 
         }
         .table-bordered { 
-            border: 1px solid #4a3066; /* Violet border */
+            border: 1px solid #4a3066; 
         }
         .table-bordered th, 
         .table-bordered td { 
-            border: 1px solid #4a3066; /* Violet cell borders */
+            border: 1px solid #4a3066; 
         }
         .table-striped tbody tr:nth-of-type(odd) { 
-            background: #3a2a5a; /* Slightly lighter violet for striped rows */
+            background: #3a2a5a;
         }
         .btn-info { 
-            background: #4a3066; /* Violet button */
+            background: #4a3066; 
             border: none; 
-            color: #fff; /* White text for "View" button */
+            color: #fff;
         }
         .btn-info:hover { 
-            background: #5a4080; /* Lighter violet on hover */
-            color: #fff; /* Maintain white text on hover */
+            background: #5a4080; 
+            color: #fff; 
         }
         .text-danger { 
-            color: #ff6666; /* Light red for error messages */
+            color: #ff6666; 
         }
     </style>
 </head>

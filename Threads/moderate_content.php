@@ -75,12 +75,12 @@ include '../Connection/db_connect.php';
         border-color: #ffb300;
     }
     .btn-no-hover {
-        background-color: #ffca28; /* Lighter orange for visibility */
+        background-color: #ffca28; 
         border-color: #ffca28;
-        color: #1a1a2e; /* Dark text for contrast */
+        color: #1a1a2e; 
     }
     .btn-no-hover:hover {
-        background-color: #ffca28; /* Same as default to remove hover effect */
+        background-color: #ffca28; 
         border-color: #ffca28;
         color: #1a1a2e;
     }

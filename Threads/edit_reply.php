@@ -5,7 +5,7 @@ include '../Connection/db_connect.php';
 if (!isset($_GET['id']) || !isset($_SESSION['user_id'])) exit("Unauthorized");
 $id = intval($_GET['id']);
 
-// For academic replies (adjust table/field names accordingly)
+
 $stmt = $conn->prepare("SELECT * FROM replies WHERE Acd_reply_id = ? AND User_id = ?");
 $stmt->bind_param("ii", $id, $_SESSION['user_id']);
 $stmt->execute();
@@ -24,7 +24,7 @@ exit;
 }
 ?>
 
-<!-- Include Bootstrap CSS if not already included -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>

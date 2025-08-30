@@ -29,54 +29,54 @@ $result = $stmt->get_result();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); 
             font-family: Arial;
-            color: #fff; /* White text for contrast */
+            color: #fff; 
         }
         .container {
-            margin: 0 auto; /* Original margin */
-            padding: 15px; /* Original padding */
-            background: #2c1e3f; /* Dark violet shade */
+            margin: 0 auto;
+            padding: 15px; 
+            background: #2c1e3f; 
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         h2 {
-            color: #fff; /* White text for heading */
+            color: #fff; 
         }
         .table {
-            background: #3a2a5a; /* Slightly lighter violet for table */
-            color: #fff; /* White text for table content */
-            border: 1px solid #4a3066; /* Violet border */
+            background: #3a2a5a; 
+            color: #fff; 
+            border: 1px solid #4a3066; 
         }
         .table-bordered th, .table-bordered td {
-            border: 1px solid #4a3066; /* Violet borders for table cells */
+            border: 1px solid #4a3066; 
         }
         .table thead th {
-            background: #4a3066; /* Darker violet for table header */
-            color: #fff; /* White text */
+            background: #4a3066; 
+            color: #fff;
         }
         .btn-warning {
-            background: #ffcc00; /* Yellow for edit button */
+            background: #ffcc00; 
             border: none;
-            color: #000; /* Black text for contrast */
+            color: #000; 
         }
         .btn-warning:hover {
-            background: #e6b800; /* Darker yellow on hover */
+            background: #e6b800; 
             color: #000;
         }
         .btn-danger {
-            background: #ff6666; /* Light red for delete button */
+            background: #ff6666;
             border: none;
-            color: #fff; /* White text */
+            color: #fff; 
         }
         .btn-danger:hover {
-            background: #e65c5c; /* Darker red on hover */
+            background: #e65c5c; 
             color: #fff;
         }
         .alert-info {
-            background: #4a3066; /* Violet for info alert */
-            color: #fff; /* White text */
-            border: 1px solid #5a4080; /* Lighter violet border */
+            background: #4a3066;
+            color: #fff; 
+            border: 1px solid #5a4080; 
         }
     </style>
 </head>

@@ -7,10 +7,10 @@ if (!isset($_SESSION['user_id'])) exit;
 $user_id = $_SESSION['user_id'];
 $other_id = intval($_GET['other_id'] ?? 0);
 
-// Mark as seen
+
 $conn->query("UPDATE messages SET Seen_status = 1 WHERE Receiver_id = $user_id AND Sender_id = $other_id");
 
-// Fetch messages
+
 $stmt = $conn->prepare("
     SELECT m.*, u.F_name AS SenderFirst, u.L_name AS SenderLast
     FROM messages m
@@ -27,7 +27,7 @@ while ($row = $result->fetch_assoc()) {
     $messages[] = $row;
 }
 
-// Seen info
+
 $last_msg = $conn->query("SELECT Seen_status FROM messages WHERE Sender_id = $user_id AND Receiver_id = $other_id ORDER BY Timestamp DESC LIMIT 1")->fetch_assoc();
 $seen_info = ($last_msg && $last_msg['Seen_status'] == 1) ? "Seen" : "";
 

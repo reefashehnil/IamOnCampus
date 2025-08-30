@@ -4,7 +4,7 @@ include '../Connection/db_connect.php';
 if (!isset($_SESSION['user_id'])) { header("Location: ../Login/login.php"); exit; }
 $my_id = $_SESSION['user_id'];
 
-// Fetch user role
+
 $role_stmt = $conn->prepare("SELECT Role FROM users WHERE User_id = ?");
 $role_stmt->bind_param("i", $my_id);
 $role_stmt->execute();
@@ -14,12 +14,11 @@ $user_role = '';
 if ($role_row = $role_result->fetch_assoc()) {
     $user_role = $role_row['Role'];
 } else {
-    // Role not found - fallback or error
-    $user_role = 'user'; // default role fallback
+   
+    $user_role = 'user'; 
 }
 
-// Debug: Uncomment below line to verify role is fetched correctly
-// echo "User role: " . htmlspecialchars($user_role); exit;
+
 
 if ($user_role === 'Admin') {
     $dashboard_link = '../Login/admin_dashboard.php';
@@ -50,7 +49,7 @@ $result = $stmt->get_result();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); 
             font-family: Arial; 
         }
         .title-bar {
@@ -58,28 +57,28 @@ $result = $stmt->get_result();
             margin: 20px auto 10px auto;
             font-size: 1.8rem;
             font-weight: bold;
-            color: #fff; /* White text for contrast */
+            color: #fff; 
             text-align: left;
         }
         .chat-list { 
             max-width: 600px; 
             margin: 0 auto 20px auto; 
-            background: #2c1e3f; /* Dark violet shade */
+            background: #2c1e3f; 
             border-radius: 8px; 
             overflow: hidden; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         .chat-item { 
             display: flex; 
             align-items: center; 
             padding: 10px; 
-            border-bottom: 1px solid #4a3066; /* Violet-tinted border */
+            border-bottom: 1px solid #4a3066; 
             text-decoration: none; 
-            color: #fff; /* White text for contrast */
+            color: #fff; 
             transition: background 0.2s; 
         }
         .chat-item:hover { 
-            background: #3a2a5a; /* Lighter violet shade on hover */
+            background: #3a2a5a; 
         }
         .chat-item img { 
             width: 50px; 
@@ -96,7 +95,7 @@ $result = $stmt->get_result();
         }
         .chat-info .last-msg { 
             font-size: 0.9rem; 
-            color: #ccc; /* Light gray for contrast */
+            color: #ccc; 
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis; 

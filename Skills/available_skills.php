@@ -24,27 +24,27 @@ $result = $conn->query($sql);
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <style>
     body {
-        background-color: #1a0d2b; /* Dark violet-black background */
-        color: #e6e6fa; /* Light lavender text for readability */
+        background-color: #1a0d2b; 
+        color: #e6e6fa; 
     }
     .container {
-        background-color: #2a1b3d; /* Slightly lighter dark shade */
+        background-color: #2a1b3d; 
         border-radius: 10px;
         padding: 20px;
     }
     .table {
-        background-color: #3c2f5c; /* Dark purple table background */
+        background-color: #3c2f5c; 
         color: #e6e6fa;
     }
     .table-bordered {
-        border-color: #5a4b7c; /* Medium purple borders */
+        border-color: #5a4b7c; 
     }
     .table-bordered th,
     .table-bordered td {
         border-color: #5a4b7c;
     }
     .table thead th {
-        background-color: #4b3c7a; /* Violet header background */
+        background-color: #4b3c7a; 
         color: #ffffff;
     }
    .btn-warning {
@@ -57,17 +57,17 @@ $result = $conn->query($sql);
         border-color: #ffb300;
     }
     .btn-no-hover {
-        background-color: #ffca28; /* Lighter orange for visibility */
+        background-color: #ffca28; 
         border-color: #ffca28;
-        color: #1a1a2e; /* Dark text for contrast */
+        color: #1a1a2e; 
     }
     .btn-no-hover:hover {
-        background-color: #ffca28; /* Same as default to remove hover effect */
+        background-color: #ffca28; 
         border-color: #ffca28;
         color: #1a1a2e;
     }
     h2 {
-        color: #d8bfd8; /* Thistle color for heading */
+        color: #d8bfd8; 
     }
 </style>
 </head>
@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                             <?php if ((int)$skill['User_id'] !== (int)$_SESSION['user_id']): ?>
                                 <a href="request_skill.php?id=<?= $skill['Skill_id'] ?>" class="btn btn-sm btn-warning">Request</a>
                             <?php else: ?>
-                                <!-- No buttons shown for own skills -->
+                                
                             <?php endif; ?>
                         </td>
                     </tr>

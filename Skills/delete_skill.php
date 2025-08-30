@@ -12,7 +12,7 @@ if (!$skill_id) {
     die("Error: No skill ID provided.");
 }
 
-// DEBUG: Show skill ID and user ID
+
 echo "<p><strong>Debug Info:</strong></p>";
 echo "<p>Skill ID to delete: " . htmlspecialchars($skill_id) . "</p>";
 echo "<p>Logged-in User ID: " . htmlspecialchars($_SESSION['user_id']) . "</p>";

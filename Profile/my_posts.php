@@ -68,12 +68,12 @@ $posts = $stmt->get_result();
             border-color: #ffb300;
         }
         .btn-no-hover {
-            background-color: #f59e0b; /* Lighter orange for visibility */
+            background-color: #f59e0b; 
             border-color: ##f59e0b;
-            color: #1a1a2e; /* Dark text for contrast */
+            color: #1a1a2e;
         }
         .btn-no-hover:hover {
-            background-color: #f59e0b; /* Same as default to remove hover effect */
+            background-color: #f59e0b; 
             border-color: #f59e0b;
             color: #1a1a2e;
         }

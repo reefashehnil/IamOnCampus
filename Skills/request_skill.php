@@ -75,41 +75,41 @@ if ($skill['User_id'] == $_SESSION['user_id']) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            background-color: #1a0d2b; /* Dark violet-black background */
-            color: #e6e6fa; /* Light lavender text for readability */
+            background-color: #1a0d2b; 
+            color: #e6e6fa; 
         }
         .container {
-            background-color: #2a1b3d; /* Slightly lighter dark shade */
+            background-color: #2a1b3d; 
             border-radius: 10px;
             padding: 20px;
             max-width: 600px;
         }
         h2 {
-            color: #d8bfd8; /* Thistle color for heading */
+            color: #d8bfd8; 
         }
         .btn-primary {
-            background-color: #6a5acd; /* Slate blue button */
+            background-color: #6a5acd; 
             border-color: #6a5acd;
         }
         .btn-primary:hover {
-            background-color: #483d8b; /* Darker slate blue on hover */
+            background-color: #483d8b; 
             border-color: #483d8b;
         }
         .btn-secondary {
-            background-color: #9370db; /* Medium purple button */
+            background-color: #9370db; 
             border-color: #9370db;
         }
         .btn-secondary:hover {
-            background-color: #7b68ee; /* Lighter purple on hover */
+            background-color: #7b68ee; 
             border-color: #7b68ee;
         }
         .alert-success {
-            background-color: #4b3c7a; /* Violet success alert */
+            background-color: #4b3c7a; 
             color: #e6e6fa;
             border-color: #5a4b7c;
         }
         .alert-danger {
-            background-color: #5c2f5c; /* Dark purple danger alert */
+            background-color: #5c2f5c; 
             color: #e6e6fa;
             border-color: #7a4b7c;
         }

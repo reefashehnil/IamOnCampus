@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) { header("Location: ../Login/login.php"); exit
 $my_id = $_SESSION['user_id'];
 $other_id = intval($_GET['id'] ?? 0);
 
-// Get other user's info
+
 $user_stmt = $conn->prepare("SELECT F_name, L_name, DP FROM users WHERE User_id = ?");
 $user_stmt->bind_param("i", $other_id);
 $user_stmt->execute();
@@ -19,23 +19,23 @@ $other_user = $user_stmt->get_result()->fetch_assoc();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a);
             font-family: Arial; 
         }
         .chat-container { 
             max-width: 800px; 
             margin: 20px auto; 
-            background: #2c1e3f; /* Dark violet shade */
+            background: #2c1e3f; 
             border-radius: 8px; 
             display: flex; 
             flex-direction: column; 
             height: 85vh; 
             overflow: hidden; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         .chat-header { 
             padding: 10px; 
-            background: linear-gradient(90deg, #3a2a5a, #4a3066); /* Violet gradient for header */
+            background: linear-gradient(90deg, #3a2a5a, #4a3066); 
             color: white; 
             font-weight: bold; 
             display: flex; 
@@ -76,7 +76,7 @@ $other_user = $user_stmt->get_result()->fetch_assoc();
             text-align: left; 
         }
         .them .bubble { 
-            background: #4a3066; /* Dark violet for received messages */
+            background: #4a3066; 
             color: white; 
             border-radius: 18px 18px 18px 0; 
             padding: 10px; 
@@ -84,32 +84,32 @@ $other_user = $user_stmt->get_result()->fetch_assoc();
         }
         .sender-name { 
             font-size: 0.8rem; 
-            color: #ccc; /* Light gray for contrast */
+            color: #ccc;
             margin-bottom: 2px; 
         }
         .seen-status { 
             font-size: 0.8rem; 
-            color: #ccc; /* Light gray for contrast */
+            color: #ccc; 
             margin-top: 3px; 
         }
         .chat-input { 
             display: flex; 
             padding: 10px; 
-            border-top: 1px solid #4a3066; /* Violet-tinted border */
+            border-top: 1px solid #4a3066; 
         }
         .chat-input input { 
             flex: 1; 
             border-radius: 20px; 
-            border: 1px solid #4a3066; /* Violet border */
+            border: 1px solid #4a3066; 
             padding: 10px; 
-            background: #3a2a5a; /* Dark violet input background */
+            background: #3a2a5a; 
             color: white; 
         }
         .chat-input input::placeholder { 
-            color: #ccc; /* Light gray placeholder text */
+            color: #ccc;
         }
         .chat-input button { 
-            background: #4a3066; /* Violet button */
+            background: #4a3066; 
             color: white; 
             border: none; 
             border-radius: 50%; 

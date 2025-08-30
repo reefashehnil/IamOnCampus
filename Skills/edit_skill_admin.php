@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         background-color: #2a2a4a;
         color: #e0e0e0;
         border: 1px solid #8b5cf6;
-        /* Custom dropdown arrow for select elements only */
+        
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d8b4fe'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 0.75rem center;

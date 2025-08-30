@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $description = trim($_POST['description']);
     $availability = trim($_POST['availability']);
     $mode = $_POST['mode'];
-    $user_id = $_SESSION['user_id']; // assign skill to current user
+    $user_id = $_SESSION['user_id']; 
 
     if ($skill_name && $mode) {
         $stmt = $conn->prepare("INSERT INTO Skills (Skill_name, Skill_description, Availability_time, Mode, User_id) VALUES (?, ?, ?, ?, ?)");
@@ -40,70 +40,70 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
         body {
-            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); /* Black to dark violet gradient */
+            background: linear-gradient(135deg, #1a1a1a, #2a1a3a); 
             font-family: Arial;
-            color: #fff; /* White text for contrast */
+            color: #fff; 
         }
         .container {
-            max-width: 600px; /* Original max-width */
-            margin: 0 auto; /* Original margin */
-            padding: 15px; /* Original padding */
-            background: #2c1e3f; /* Dark violet shade */
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 15px; 
+            background: #2c1e3f;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Darker shadow for contrast */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
         }
         h2 {
-            color: #fff; /* White text for heading */
+            color: #fff; 
         }
         .form-control, .form-select {
-            background: #3a2a5a; /* Dark violet for inputs and selects */
-            border: 1px solid #4a3066; /* Violet border */
-            color: #fff; /* White text */
-            padding-right: 30px; /* Space for custom caret */
+            background: #3a2a5a; 
+            border: 1px solid #4a3066; 
+            color: #fff; 
+            padding-right: 30px; 
         }
         .form-control::placeholder {
-            color: #ccc; /* Light gray placeholder text */
+            color: #ccc; 
         }
         .form-label {
-            color: #fff; /* White for form labels */
+            color: #fff; 
         }
         .btn-primary {
-            background: #4a3066; /* Violet for submit button */
+            background: #4a3066; 
             border: none;
-            color: #fff; /* White text */
+            color: #fff;
         }
         .btn-primary:hover {
-            background: #5a4080; /* Lighter violet on hover */
+            background: #5a4080; 
             color: #fff;
         }
         .alert-success {
-            background: #4a3066; /* Violet for success alert */
-            color: #fff; /* White text */
-            border: 1px solid #5a4080; /* Lighter violet border */
+            background: #4a3066; 
+            color: #fff; 
+            border: 1px solid #5a4080; 
         }
         .alert-danger {
-            background: #ff6666; /* Light red for error alert */
-            color: #fff; /* White text */
-            border: 1px solid #4a3066; /* Violet border */
+            background: #ff6666; 
+            color: #fff; 
+            border: 1px solid #4a3066; 
         }
-        /* Custom dropdown caret for select elements */
+       
         .select-wrapper {
             position: relative;
             display: inline-block;
             width: 100%;
         }
         .select-wrapper::after {
-            content: '\25B4'; /* Unicode for upward caret (^) */
+            content: '\25B4';
             position: absolute;
             top: 50%;
             right: 10px;
             transform: translateY(-50%);
-            color: #ccc; /* Light gray caret */
+            color: #ccc; 
             font-size: 0.8rem;
-            pointer-events: none; /* Prevent interaction with caret */
+            pointer-events: none; 
         }
         .form-select {
-            appearance: none; /* Remove default browser arrow */
+            appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
         }

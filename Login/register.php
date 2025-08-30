@@ -176,7 +176,7 @@ footer { color:#e0c3fc; text-align:center; margin-top:20px; }
                 </select>
             </div>
 
-            <!-- NEW: Tell something about yourself -->
+            
             <div class="mb-3">
                 <label for="about_me" class="form-label">Tell something about yourself *</label>
                 <textarea id="about_me" name="about_me" class="form-control" rows="3" maxlength="500" required><?= htmlspecialchars($_POST['about_me'] ?? '') ?></textarea>
@@ -198,7 +198,7 @@ footer { color:#e0c3fc; text-align:center; margin-top:20px; }
 </div>
 
 <script>
-// Particles
+
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
     for(let i=0;i<50;i++){
