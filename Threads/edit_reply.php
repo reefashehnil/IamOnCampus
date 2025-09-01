@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         justify-content: center;
     }
     .edit-reply-card {
-        max-width: 600px;
+        max-width: 800px; /* Increased from 600px for wider form */
         margin: 40px auto;
         padding: 25px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -58,11 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         color: #ffffff !important;
         border: 1px solid #6a0dad !important;
         width: 100% !important;
-        height: 250px !important; /* Increased height for a larger textarea */
-        font-size: 1.2rem !important; /* Slightly larger font size */
-        padding: 15px !important; /* More padding for spacious feel */
-        resize: vertical !important; /* Allow vertical resizing only */
-        line-height: 1.5 !important; /* Improved readability */
+        height: 350px !important; 
+        font-size: 1.3rem !important; 
+        padding: 20px !important; 
+        resize: vertical !important; 
+        line-height: 1.5 !important; 
     }
     .edit-reply-card textarea.form-control:focus {
         border-color: #c71585 !important;
